@@ -1,0 +1,116 @@
+languageCode: en-us
+title: Nejc Korasa
+paginate: 5
+theme: PaperMod
+
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+googleAnalytics: UA-123-45
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+params:
+  env: production
+  title: Nejc Korasa
+  description: "Nejc Korasa"
+  keywords: [Blog, Portfolio, PaperMod]
+  author: Nejc Korasa
+  images: ["https://avatars.githubusercontent.com/nejckorasa"]
+  DateFormat: "January 2, 2006"
+  defaultTheme: auto
+  disableThemeToggle: false
+
+  ShowReadingTime: true
+  ShowShareButtons: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: false
+  ShowWordCount: true
+  ShowRssButtonInSectionTermList: true
+  UseHugoToc: true
+  disableSpecial1stPost: false
+  disableScrollToTop: false
+  comments: false
+  hidemeta: false
+  hideSummary: false
+  showtoc: false
+  tocopen: false
+
+  assets:
+    favicon: "favicon.ico"
+    favicon16x16: "favicon-16x16.png"
+    favicon32x32: "favicon-32x32.png"
+    apple_touch_icon: "apple-touch-icon.png"
+
+  # home-info mode
+  homeInfoParams:
+    Title: "About Me"
+    Content: |
+      Pragmatic Software Engineer with a keen interest in new software technologies. 
+      
+      - 
+      
+      - I have BSc in Mathematics and Computer Science and more than 8 years of engineering and technical leadership experience working in Agile environments, building scalable, resilient software. I have designed distributed systems from scratch, migrated legacy projects to adopt new technologies and designed big data processes.
+      
+      - 
+      
+      - Currently I am helping build Chase International Consumer digital bank at JPMorgan Chase.
+
+  socialIcons:
+    - name: linkedin
+      url: "https://www.linkedin.com/in/nejckorasa"
+    - name: github
+      url: "https://github.com/nejckorasa"
+    - name: twitter
+      url: "https://twitter.com/nejckorasa"
+    - name: stackoverflow
+      url: "https://stackoverflow.com/users/4420094/nejckorasa"
+
+  cover:
+    hidden: true # hide everywhere but not in structured data
+    hiddenInList: true # hide on list pages and home
+    hiddenInSingle: true # hide on single page
+
+  # for search
+  # https://fusejs.io/api/options.html
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    keys: ["title", "permalink", "summary", "content"]
+
+# Hide menu for now
+
+#menu:
+#  main:
+#    - identifier: search
+#      name: search
+#      url: /search/
+#      weight: 10
+#    - identifier: categories
+#      name: categories
+#      url: /categories/
+#      weight: 10
+#    - identifier: tags
+#      name: tags
+#      url: /tags/
+#      weight: 20
+
+# Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
+pygmentsUseClasses: true
+markup:
+  highlight:
+    noClasses: false
+    # anchorLineNos: true
+    # codeFences: true
+    # guessSyntax: true
+    # lineNos: true
+    # style: monokai
