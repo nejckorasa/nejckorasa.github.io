@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Nejc Korasa</title>
-    <link>/</link>
+    <link>https://nejckorasa.github.io/</link>
     <description>Recent content on Nejc Korasa</description>
     <image>
       <url>https://avatars.githubusercontent.com/nejckorasa</url>
       <link>https://avatars.githubusercontent.com/nejckorasa</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://nejckorasa.github.io/index.xml" rel="self" type="application/rss+xml" />
     
   </channel>
 </rss>
