@@ -71,6 +71,8 @@ params:
       url: "https://twitter.com/nejckorasa"
     - name: stackoverflow
       url: "https://stackoverflow.com/users/4420094/nejckorasa"
+    - name: dev
+      url: "https://dev.to/nejckorasa"
 
   cover:
     hidden: true # hide everywhere but not in structured data
@@ -88,22 +90,26 @@ params:
     minMatchCharLength: 0
     keys: ["title", "permalink", "summary", "content"]
 
-# Hide menu for now
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
 
-#menu:
-#  main:
-#    - identifier: search
-#      name: search
-#      url: /search/
-#      weight: 10
-#    - identifier: categories
-#      name: categories
-#      url: /categories/
-#      weight: 10
-#    - identifier: tags
-#      name: tags
-#      url: /tags/
-#      weight: 20
+menu:
+  main:
+    - identifier: search
+      name: Search
+      url: /search/
+      weight: 1
+    - identifier: archives
+      name: Archive
+      url: /archives/
+      weight: 2
+    - identifier: tags
+      name: Tags
+      url: /tags/
+      weight: 3
 
 # Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
 pygmentsUseClasses: true
