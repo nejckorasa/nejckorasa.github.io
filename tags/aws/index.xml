@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Nejc Korasa</title>
-    <link>https://nejckorasa.github.io/</link>
-    <description>Recent content on Nejc Korasa</description>
+    <title>AWS on Nejc Korasa</title>
+    <link>https://nejckorasa.github.io/tags/aws/</link>
+    <description>Recent content in AWS on Nejc Korasa</description>
     <image>
       <url>https://avatars.githubusercontent.com/nejckorasa</url>
       <link>https://avatars.githubusercontent.com/nejckorasa</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 22 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://nejckorasa.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 22 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://nejckorasa.github.io/tags/aws/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Stream unzip files in S3 with Java</title>
       <link>https://nejckorasa.github.io/posts/s3-unzip/</link>
@@ -21,8 +21,6 @@
 I&amp;rsquo;ll explain a few options to handle the unzipping as well as the end solution which has led me to build nejckorasa/s3-stream-unzip.
 To sum up:</description>
     </item>
-    
-    
     
   </channel>
 </rss>
