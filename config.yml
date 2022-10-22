@@ -101,15 +101,19 @@ menu:
     - identifier: search
       name: Search
       url: /search/
-      weight: 1
+      weight: 99
     - identifier: archives
       name: Archive
       url: /archives/
       weight: 2
+    - identifier: categories
+      name: Categories
+      url: /categories/
+      weight: 3
     - identifier: tags
       name: Tags
       url: /tags/
-      weight: 3
+      weight: 4
 
 # Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
 pygmentsUseClasses: true
