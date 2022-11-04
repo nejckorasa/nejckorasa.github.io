@@ -42,7 +42,6 @@ params:
   showtoc: false
   tocopen: false
 
-
   assets:
     favicon: "favicon.ico"
     favicon16x16: "favicon-16x16.png"
@@ -90,6 +89,10 @@ params:
     threshold: 0.4
     minMatchCharLength: 0
     keys: ["title", "permalink", "summary", "content"]
+
+  analytics:
+    google:
+      SiteVerificationTag: G-R86690PBWG
 
 outputs:
   home:
