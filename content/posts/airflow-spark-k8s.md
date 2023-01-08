@@ -4,19 +4,21 @@ date: 2022-12-06
 tags: ["Java", "S3", "AWS", "Spark", "Airflow"]
 categories: Software Engineering
 ---
-Firs, you need to install and configure Airflow on your system.
-- Set up a connection to your Kubernetes cluster in Airflow, so that Airflow can access and manage the cluster.
-- Create a new Airflow DAG (Directed Acyclic Graph) to define the workflow for your Spark job. The DAG should include tasks for submitting the Spark job to the Kubernetes cluster, monitoring the job's progress, and handling any errors or failures.
-- In the DAG, specify the details of your Spark job, such as the main class, the job arguments, and the dependencies. You can also use Airflow's built-in operators and hooks to interact with the Kubernetes API and manage the Spark job.
-- Define the schedule for your DAG, using Airflow's schedule interval feature. This will determine how often the Spark job is run.
-- Start the Airflow scheduler to begin running your Spark job according to the defined schedule.
-- Monitor the status of your Spark job using the Airflow web interface, and make any necessary adjustments to the DAG or the cluster settings as needed.
+
+In summary, the steps are:
+1) Install and configure Airflow on your system
+2) Set up a connection to your Kubernetes cluster in Airflow, so that Airflow can access and manage the cluster.
+3) Create a new Airflow DAG (Directed Acyclic Graph) to define the workflow for your Spark job. The DAG should include tasks for submitting the Spark job to the Kubernetes cluster, monitoring the job's progress, and handling any errors or failures.
+4) In the DAG, specify the details of your Spark job, such as the main class, the job arguments, and the dependencies. You can also use Airflow's built-in operators and hooks to interact with the Kubernetes API and manage the Spark job.
+5) Define the schedule for your DAG, using Airflow's schedule interval feature. This will determine how often the Spark job is run.
+6) Start the Airflow scheduler to begin running your Spark job according to the defined schedule.
+7) Monitor the status of your Spark job using the Airflow web interface, and make any necessary adjustments to the DAG or the cluster settings as needed.
 
 ### Can you show an example of such dag?
 
 Sure, here is an example of a DAG that can be used to schedule a Spark job on a Kubernetes cluster:
 
-```python3
+```python
 from airflow import DAG
 from airflow.operators.spark_kubernetes_operator import SparkKubernetesOperator
 
@@ -49,7 +51,7 @@ In this example, the `SparkKubernetesOperator` is used to submit a Spark job to 
 
 Sure, here is an example of a Dockerfile that can be used to create an image for running a Spark job on a Kubernetes cluster:
 
-```dockerfile
+```Docker
 FROM ubuntu:20.04
 
 # Install Java and other dependencies
@@ -66,10 +68,10 @@ ENV PATH $PATH:$SPARK_HOME/bin
 # Copy the application JAR file to the container
 COPY app.jar /opt/spark/examples/jars/
 
-# Set the entrypoint to run the Spark job
-ENTRYPOINT ["spark-submit"]
+# Set the cmd to run the Spark job
+CMD ["spark-submit"]
 ```
-This Dockerfile installs the necessary dependencies (Java and Spark), sets the environment variables, and copies the application JAR file to the container. The `ENTRYPOINT` is set to `spark-submit`, so that running the container automatically submits the Spark job. You can modify this Dockerfile as needed to include any additional dependencies or settings required for your specific use case.
+This Dockerfile installs the necessary dependencies (Java and Spark), sets the environment variables, and copies the application JAR file to the container. The `CMD` is set to `spark-submit`, so that running the container automatically submits the Spark job. You can modify this Dockerfile as needed to include any additional dependencies or settings required for your specific use case.
 
 ### Can you show an example Spark Java application that can be used to produce the jar?
 
