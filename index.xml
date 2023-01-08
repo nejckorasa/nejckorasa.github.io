@@ -10,7 +10,17 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 22 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://nejckorasa.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 08 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://nejckorasa.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Avoid Tight Coupling of Tests to Implementation Details</title>
+      <link>https://nejckorasa.github.io/posts/microservice-testing/</link>
+      <pubDate>Sun, 08 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://nejckorasa.github.io/posts/microservice-testing/</guid>
+      <description>Building backend systems today will likely involve building many small, independent services that communicate and coordinate with one another to form a distributed system. While there are many resources available discussing the pros and cons of microservices, the architecture, and when it is appropriate to use, I want to focus on the functional testing of microservices and how it differs from traditional approaches.
+In my experience, the &amp;ldquo;best testing practices&amp;rdquo; have evolved with the introduction of microservices, and traditional testing pyramids may not be the most effective or even potentially harmful in this context.</description>
+    </item>
+    
     <item>
       <title>Stream unzip files in S3 with Java</title>
       <link>https://nejckorasa.github.io/posts/s3-unzip/</link>
