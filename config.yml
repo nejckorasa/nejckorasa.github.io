@@ -73,6 +73,7 @@ params:
       url: "https://stackoverflow.com/users/4420094/nejckorasa"
     - name: dev
       url: "https://dev.to/nejckorasa"
+    - name: rss
 
   cover:
     hidden: true # hide everywhere but not in structured data
