@@ -5,7 +5,23 @@ tags: ["Kafka", "Idempotency", "Software Architecture", "Event Driven Architectu
 categories: Software Engineering
 ---
 
-## Duplicate messages are inevitable
+- [Duplicate Messages are Inevitable](#duplicate-messages-are-inevitable)
+- [Kafka Delivery Guarantees](#kafka-delivery-guarantees)
+   - [Understanding the Intricacies of exactly-once semantics in Kafka](#understanding-the-intricacies-of-exactly-once-semantics-in-kafka)
+- [Achieving Idempotent Processing in Kafka](#achieving-idempotent-processing-in-kafka)
+   - [Consuming from Kafka (Idempotent Consumer Pattern)](#consuming-from-kafka-idempotent-consumer-pattern)
+      - [Ordering of Messages](#ordering-of-messages)
+      - [Retry Handling](#retry-handling)
+   - [Responding to REST calls](#responding-to-rest-calls)
+- [Writing Outputs to Kafka and maintaining Data Consistency](#writing-outputs-to-kafka-and-maintaining-data-consistency)
+   - [Responding to REST calls](#responding-to-rest-calls)
+   - [Consuming from Kafka](#consuming-from-kafka)
+   - [Transactional Outbox Pattern](#transactional-outbox-pattern)
+   - [Outbox Pattern is not always necessary](#outbox-pattern-is-not-always-necessary)
+   - [Idempotent Processing](#idempotent-processing)
+- [Final Thoughts](#final-thoughts)
+
+## Duplicate Messages are Inevitable
 
 Duplicate messages are an inherent aspect of message-based systems and can occur for various reasons. In the context of Kafka, it is essential to ensure that your application is able to handle these duplicates effectively. As a Kafka consumer, there are several scenarios that can lead to the consumption of duplicate messages. These include:
 
@@ -14,11 +30,11 @@ Duplicate messages are an inherent aspect of message-based systems and can occur
   
 To ensure the idempotent processing and handle these scenarios, it's important to have a proper strategy to detect and handle duplicate messages.
 
-## Kafka delivery guarantees
+## Kafka Delivery Guarantees
 
 Kafka offers different message delivery guarantees between producers and consumers, namely _at-least-once_, _at-most-once_ and _exactly-once_. 
 
-### Understanding the intricacies of exactly-once semantics in Kafka
+### Understanding the Intricacies of exactly-once semantics in Kafka
 
 Exactly-once would seem like an obvious choice to guard against duplicate messages, but it not that simple and the devil is in the details. Confluent has spent a lot of resources to deliver exactly-once delivery guarantee, and you can read [here](https://www.confluent.io/en-gb/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/) on how it works in detail. It requires you to enable specific Kafka features (i.e. Idempotent Producer and Kafka Transactions). 
 
@@ -55,23 +71,23 @@ An [Idempotent Consumer Pattern](https://microservices.io/patterns/communication
 
 Choosing an appropriate topic key can help to ensure ordering guarantees within the same Kafka partition. For example, if messages are being processed in the context of a customer, using a customer ID as the topic key will ensure that messages for any individual customer will always be processed in the correct order.
 
-#### Retry handling
+#### Retry Handling
 
 Kafka's offset commits can be used to create a "transaction boundary" (not to be confused with Kafka transactions mentioned before) for retrying message processing in case of failure. The same message can then be consumed again until the consumer offset is committed. Retry handling is a complex topic and various strategies can be employed depending on the specific requirements of the application. Confluent has written about [Kafka Error Handling Patterns](https://www.confluent.io/en-gb/blog/error-handling-patterns-in-kafka/) that can be used to handle retries in a Kafka-based application.
 
-### Responding to a REST call
+### Responding to REST calls
 
 When the trigger for the processing is a REST call, the client must be responsible for retrying the operation. The REST API must also include an idempotency key. Similarly to the Idempotent Consumer Pattern, received message IDs can be tracked in a database to handle idempotency. However, there is no ordering guarantee when responding to HTTP calls, and additional care must be taken to avoid certain race conditions during processing.
 
-### Writing Outputs to Kafka and maintaining Data Consistency
+## Writing Outputs to Kafka and maintaining Data Consistency
 
 When it comes to publishing messages back to Kafka after processing is complete, the complexity increases. In a Microservices architecture, services along with updating their own local data store they often need to notify other services within the organization of changes that have occurred. This is where event-driven architecture shines, allowing individual services to publish changes as events to a Kafka topic that can be consumed by other services. But how can this be achieved in a way that ensures data consistency and enables idempotent processing?
 
-#### Handling REST calls
+### Responding to REST calls
 
 When processing a REST call, the retry strategy is out of the control of the application, making it more susceptible to failure scenarios and inconsistent states. To address this, the recommended approach is to use the Transactional Outbox Pattern and atomically update the database and publish a message to Kafka.
 
-#### Consuming from Kafka
+### Consuming from Kafka
 
 On the other hand, consuming from Kafka has a built-in retry mechanism. If the processing is naturally idempotent, deterministic, and does not interact with other services (i.e. all its state resides in Kafka), then the solution can be relatively simple:
 
@@ -80,9 +96,9 @@ On the other hand, consuming from Kafka has a built-in retry mechanism. If the p
 3) Publish the resulting message to a Kafka topic.
 4) Commit the consumer offset.
 
-This approach ensures data consistency and enables idempotent processing. It guarantees that a published message is produced for every consumed message. To ensure at least-once delivery of published messages, it's also necessary to ensure that the message is actually sent to the Kafka broker and that the Kafka producer has flushed its outgoing message queue.
+This approach ensures data consistency and enables idempotent processing. It guarantees that at least one published message is produced for every consumed message. To ensure at least-once delivery of published messages, it's also necessary to ensure that the message is _actually_ sent to the Kafka broker and that the Kafka producer has flushed its outgoing message queue.
 
-#### Transactional Outbox Pattern
+### Transactional Outbox Pattern
 
 Another approach is to utilize [Transactional Outbox Pattern](https://microservices.io/patterns/data/transactional-outbox.html) which fills the gap between the database and Kafka transaction boundary by atomically updating both. The reason being that it is not possible to have a single transaction that spans the application’s database as well as Kafka.
 
@@ -98,11 +114,22 @@ However, this pattern comes with additional complexity. The message must not onl
 
 A better approach is to utilize [CDC (change data capture)](https://learn.microsoft.com/en-us/sql/relational-databases/track-changes/about-change-data-capture-sql-server?view=sql-server-ver16) if your database supports it. You can use [Debezium](https://debezium.io) and [Kafka Connect](https://docs.confluent.io/platform/current/connect/index.html) to integrate CDC with a Postgres DB for example. That way, the database and Kafka stay in sync, and you don't have to deal with the drawbacks of database polling.
 
-Even with the use of CDC, that will still result in another component that needs to be managed and monitored, and another possible point of failure. In certain situations it is easier to avoid the Transactional Outbox Pattern and handle writes to Kafka within the application, as explained with the first simple solution above.
+### Outbox Pattern is not always necessary
+
+However, even with the use of CDC, that will still result in another component that needs to be managed and monitored, and another possible point of failure. In certain situations it is easier to avoid the Transactional Outbox Pattern and handle writes to Kafka within the application. That can be achieved by combining the first simple solution explained above with the Idempotent Consumer pattern:
+
+1) Consume the message from a Kafka topic.
+2) Consult the database to confirm that the message has not been previously processed. If it has, proceed to step 5.
+3) Process the message, taking care to handle any external actions in an idempotent manner.
+4) Write results to the database and mark the message as successfully processed.
+5) Publish the resulting message to a Kafka topic.
+6) Commit the consumer offset.
+
+The approach outlined above combines the use of the Idempotent Consumer pattern with direct writes to Kafka, resulting in a streamlined solution for handling duplicate messages. Additionally, by eliminating the need for an intermediate "Outbox" table, this approach reduces the number of components that need to be managed and monitored, resulting in a simpler overall architecture. Furthermore, it also benefits from reduced latency in message publishing as it avoids the added step of writing to a database before publishing to Kafka.
 
 ### Idempotent Processing
 
-Regardless of the pattern used - whether the application publishes to Kafka directly, or with the help of Transactional Outbox Pattern - there is no exactly-once guarantee for application processing. All other actions occurring as part of the processing can still happen multiple times. For example, in case of REST calls to other services, calls themselves need to be idempotent, and the same idempotency key needs to be relayed over to those calls. Similarly, all database writes need to be idempotent as well.
+Regardless of the pattern used - whether the application publishes to Kafka directly, or with the help of Transactional Outbox Pattern - there is no exactly-once guarantee for application processing. All other actions occurring as part of the processing, and all external side effects, can still happen multiple times. For example, in case of REST calls to other services, calls themselves need to be idempotent, and the same idempotency key needs to be relayed over to those calls. Similarly, all database writes need to be idempotent as well.
 
 ## Final Thoughts
 
