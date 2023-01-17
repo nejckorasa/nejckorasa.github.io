@@ -67,14 +67,14 @@ This will depend on the nature of processing, and on the shape of the output. To
 An [Idempotent Consumer Pattern](https://microservices.io/patterns/communication-style/idempotent-consumer.html) ensures that a Kafka consumer can handle duplicate messages correctly. You can make a consumer idempotent by recording in the database the IDs of the messages that it has processed successfully. When processing a message, a consumer can detect and discard duplicates by querying the database:
 
 ```java
-var kafkaMessage = consumeKafkaMessage(kafkaClient);
+var kafkaMessage = kafkaConsumer.consume();
 
-if (!isDuplicateMessage(kafkaMessage, database)) {
-    var result = processMessageIdempotently(kafkaMessage, database);
-    updateDatabase(result, database);
+if (!database.isDuplicate(kafkaMessage)) {
+    var result = processMessageIdempotently(kafkaMessage);
+    database.updateAndRecordProcessed(result);
 }
 
-commitOffset(kafkaMessage);
+kafkaConsumer.commitOffset(kafkaMessage);
 ```
 
 ### Ordering of Messages
@@ -98,12 +98,14 @@ When it comes to publishing messages back to Kafka after processing is complete,
 Consuming from Kafka has a built-in retry mechanism. If the processing is naturally idempotent, deterministic, and does not interact with other services (i.e. all its state resides in Kafka), then the solution can be relatively simple:
 
 ```java
-var kafkaMessage = consumeKafkaMessage(kafkaClient);
+var kafkaMessage = kafkaConsumer.consume();
 
-processMessageIdempotently(kafkaMessage);
+var result = processMessageIdempotently(kafkaMessage);
 
-produceAndFlushKafkaMessage();
-commitOffset(kafkaMessage);
+var kafkaOutputMessage = result.toKafkaOutputMessage();
+
+kafkaProducer.produceAndFlush(kafkaOutputMessage);
+kafkaConsumer.commitOffset(kafkaMessage);
 ```
 
 1) Consume the message from a Kafka topic.
@@ -122,18 +124,18 @@ Another approach is to utilize [Transactional Outbox Pattern](https://microservi
 One possible implementation of this pattern is to have an “Outbox” table and instead of publishing resulting messages directly to Kafka, the messages are written to the Outbox table in a compatible format (e.g. [Avro](https://www.confluent.io/en-gb/blog/avro-kafka-data/)).
 
 ```java
-var kafkaMessage = consumeKafkaMessage(kafkaClient);
+var kafkaMessage = kafkaConsumer.consume();
 
-if (!isDuplicateMessage(kafkaMessage, database)) {
+if (!database.isDuplicate(kafkaMessage)) {
     var result = processMessageIdempotently(kafkaMessage);
     
-    var transaction = startTransaction(database);
-    updateDatabase(result, database);
-    writeOutbox(result, database);
+    var transaction = database.startTransaction();
+    database.updateAndRecordProcessed(result);
+    database.writeOutbox(result);
     transaction.commit();
 }
 
-commitOffset(kafkaMessage);
+kafkaConsumer.commitOffset(kafkaMessage);
 ```
 
 However, this pattern comes with additional complexity. The message must not only be written to the database but also published to Kafka. This can be implemented by a separate message relay service that continuously polls the database for new outbox messages, publishes them to Kafka, and marks them as processed. However, this approach has several drawbacks:
@@ -155,17 +157,22 @@ However, even with the use of CDC, that will still result in another component t
 ```java
 var kafkaMessage = consumeKafkaMessage(kafkaClient);
 
-if (!isDuplicateMessage(kafkaMessage, database)) {
-    var result = processMessageIdempotently(kafkaMessage);
-    updateDatabase(result, database);
+var result;
+if (!database.isDuplicate(kafkaMessage)) {
+    result = processMessageIdempotently(kafkaMessage);
+    database.updateAndRecordProcessed(result);
+} else {
+    result = database.readResult(kafkaMessage);
 }
 
-produceAndFlushKafkaMessage();
-commitOffset(kafkaMessage);
+var kafkaOutputMessage = result.toKafkaOutputMessage();
+kafkaProducer.produceAndFlush(kafkaOutputMessage);
+kafkaConsumer.commitOffset(kafkaMessage);
 ```
 
 1) Consume the message from a Kafka topic.
-2) Consult the database to confirm that the message has not been previously processed. If it has, proceed to step 5.
+2) Consult the database to confirm the message has not been previously processed. 
+If it has, read the stored result and proceed to step 5.
 3) Process the message, taking care to handle any external actions in an idempotent manner.
 4) Write results to the database and mark the message as successfully processed.
 5) Publish the resulting message to a Kafka topic.
