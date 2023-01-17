@@ -1,6 +1,6 @@
 ---
 title: "Idempotent Kafka Processing"
-date: 2023-01-14
+date: 2023-02-04
 tags: ["Kafka", "Idempotency", "Software Architecture", "Event Driven Architecture", "Asynchronous Processing", "Transactional Outbox"]
 categories: Software Engineering
 ---
