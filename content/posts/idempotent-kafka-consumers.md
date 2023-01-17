@@ -49,7 +49,7 @@ Critical points to understand about exactly-once delivery are:
 
 2) **All participating consumers and producers need to be configured correctly.**
 
-    Kafka exactly-once semantics is achieved by enabling Kafka Idempotent Producers and Kafka Transactions in **all** consumers and producers involved. That includes the upstream producer and downstream consumers from the perspective of you application.
+    Kafka exactly-once semantics is achieved by enabling [Kafka Idempotent Producers](https://www.conduktor.io/kafka/idempotent-kafka-producer) and [Kafka Transactions](https://www.confluent.io/en-gb/blog/transactions-apache-kafka/) in **all** consumers and producers involved. That includes the upstream producer and downstream consumers from the perspective of you application.
    If you are using Event-driven architecture to implement inter-service communication in your system, it is likely that you will consume messages you don't control, or own. Kafka topic is just your asynchronous API you are a consumer of. The topic and the producer can be owned by another team or a 3rd party. Similarly, you may not control downstream consumers. To add to the first point, outbound messages can still be written to the topic multiple times before being successfully committed, it is the responsibility of any downstream consumers to only read committed messages (i.e. be transaction aware) in order to meet the exactly-once guarantee.
 
 3) **it comes with a performance impact.**
