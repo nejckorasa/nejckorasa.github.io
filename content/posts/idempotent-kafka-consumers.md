@@ -1,5 +1,5 @@
 ---
-title: "Idempotent Kafka Processing"
+title: "Idempotent Processing with Kafka"
 date: 2023-02-04
 tags: ["Kafka", "Idempotency", "Software Architecture", "Event Driven Architecture", "Asynchronous Processing", "Transactional Outbox"]
 categories: Software Engineering
@@ -12,12 +12,12 @@ categories: Software Engineering
     - [Idempotent Consumer Pattern](#idempotent-consumer-pattern)
     - [Ordering of Messages](#ordering-of-messages)
     - [Retry Handling](#retry-handling)
-    - [Idempotent Processing](#idempotent-processing)
-- [Publishing Output Messages to Kafka and maintaining Data Consistency](#publishing-output-messages-to-kafka-and-maintaining-data-consistency)
+    - [Idempotent Processing and External Side Effects](#idempotent-processing-and-external-side-effects)
+- [Publishing Output Messages to Kafka and Maintaining Data Consistency](#publishing-output-messages-to-kafka-and-maintaining-data-consistency)
     - [The Simplest Solution](#the-simplest-solution)
     - [Transactional Outbox Pattern](#transactional-outbox-pattern)
     - [Without Transactional Outbox](#without-transactional-outbox)
-- [How it compares to Synchronous REST API](#how-it-compares-to-synchronous-rest-api)
+- [How it compares to Synchronous REST APIs](#how-it-compares-to-synchronous-rest-apis)
 - [Final Thoughts](#final-thoughts)
 
 ## Duplicate Messages are Inevitable
@@ -43,7 +43,7 @@ Exactly-once messaging semantics ensures the **combined** outcome of multiple st
 
 Critical points to understand about exactly-once delivery are:
 
-1) **All other actions occurring as part of the processing can still happen multiple times, if the original message is redelivered.**
+1) **All other actions occurring as part of the processing can still happen multiple times, if the original message is re-consumed.**
     
     The guarantee only covers resulting messages from the processing to be written exactly once, so downstream transaction aware consumers will not have to handle duplicates. Hence, each individual action (internal or external) still needs to be processed in an idempotent fashion to ensure real end-to-end exactly once processing. Application may need to, for example, perform REST calls to other applications, write to the database etc.
 
@@ -85,11 +85,11 @@ Choosing an appropriate topic key can help to ensure ordering guarantees within 
 
 Kafka's offset commits can be used to create a "transaction boundary" (not to be confused with Kafka transactions mentioned before) for retrying message processing in case of failure. The same message can then be consumed again until the consumer offset is committed. Retry handling is a complex topic and various strategies can be employed depending on the specific requirements of the application. Confluent has written about [Kafka Error Handling Patterns](https://www.confluent.io/en-gb/blog/error-handling-patterns-in-kafka/) that can be used to handle retries in a Kafka-based application.
 
-### Idempotent Processing
+### Idempotent Processing and External Side Effects
 
 As mentioned before, there is no exactly-once guarantee for application processing. All the actions occurring as part of the processing, and all external side effects, can still happen multiple times. For example, in case of REST calls to other services, calls themselves need to be idempotent, and the same idempotency key needs to be relayed over to those calls. Similarly, all database writes need to be idempotent as well.
 
-## Publishing Output Messages to Kafka and maintaining Data Consistency
+## Publishing Output Messages to Kafka and Maintaining Data Consistency
 
 When it comes to publishing messages back to Kafka after processing is complete, the complexity increases. In a Microservices architecture, services along with updating their own local data store they often need to notify other services within the organization of changes that have occurred. This is where event-driven architecture shines, allowing individual services to publish changes as events to a Kafka topic that can be consumed by other services. But how can this be achieved in a way that ensures data consistency and enables idempotent processing?
 
@@ -157,7 +157,6 @@ However, even with the use of CDC, that will still result in another component t
 ```java
 var kafkaMessage = consumeKafkaMessage(kafkaClient);
 
-var result;
 if (!database.isDuplicate(kafkaMessage)) {
     result = processMessageIdempotently(kafkaMessage);
     database.updateAndRecordProcessed(result);
@@ -188,13 +187,13 @@ This approach has some downsides to consider:
 - It might simplify overall architecture but it increases the complexity of processing within the application.
 - The addition of a Kafka publish step can cause a performance overhead and prolong overall processing time.
 
-## How it compares to Synchronous REST API
+## How it compares to Synchronous REST APIs
 
-Similarly to the Idempotent Consumer Pattern, in case of a REST API, received message IDs could also be tracked in a database to handle idempotency. REST API would also need to include an idempotency key. However, there are drawbacks to using REST call as a trigger for processing, namely:
+Similarly to the Idempotent Consumer Pattern, in case of a REST API, received message IDs could also be tracked in a database to handle idempotency. However, there are drawbacks to using REST call as a trigger for processing, namely:
 - The retry strategy is out of the control of the application, and the caller is responsible for retrying the operation. That makes it more susceptible to failure scenarios and inconsistent states.
 - There is no ordering guarantee when responding to HTTP calls, and additional care must be taken to avoid certain race conditions during processing.
 
-Publishing output messages to Kafka in a way that maintains data consistency can be achieved by using Transactional Outbox Pattern to atomically update the database and publish a message to Kafka.
+Publishing output messages to Kafka in a way that maintains data consistency can be achieved by using [Transactional Outbox Pattern](https://microservices.io/patterns/data/transactional-outbox.html) to atomically update the database and publish a message to Kafka.
 
 ## Final Thoughts
 
