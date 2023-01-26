@@ -69,10 +69,12 @@ params:
       url: "https://github.com/nejckorasa"
     - name: twitter
       url: "https://twitter.com/nejckorasa"
-    - name: stackoverflow
-      url: "https://stackoverflow.com/users/4420094/nejckorasa"
     - name: dev
       url: "https://dev.to/nejckorasa"
+    - name: medium
+      url: "https://medium.com/@nejckorasa"
+    - name: stackoverflow
+      url: "https://stackoverflow.com/users/4420094/nejckorasa"
     - name: rss
 
   cover:
