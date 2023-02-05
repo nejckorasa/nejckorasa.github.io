@@ -10,7 +10,16 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 08 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://nejckorasa.github.io/categories/software-engineering/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 04 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://nejckorasa.github.io/categories/software-engineering/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Idempotent Processing with Kafka</title>
+      <link>https://nejckorasa.github.io/posts/idempotent-kafka-procesing/</link>
+      <pubDate>Sat, 04 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://nejckorasa.github.io/posts/idempotent-kafka-procesing/</guid>
+      <description>Duplicate Messages are Inevitable Understanding the Intricacies of exactly-once semantics in Kafka Achieving Idempotent Processing with Kafka Idempotent Consumer Pattern Ordering of Messages Retry Handling Idempotent Processing and External Side Effects Publishing Output Messages to Kafka and Maintaining Data Consistency The Simplest Solution Transactional Outbox Pattern Without Transactional Outbox How it compares to Synchronous REST APIs Final Thoughts Duplicate Messages are Inevitable Duplicate messages are an inherent aspect of message-based systems and can occur for various reasons.</description>
+    </item>
+    
     <item>
       <title>Avoid Tight Coupling of Tests to Implementation Details</title>
       <link>https://nejckorasa.github.io/posts/microservice-testing/</link>
