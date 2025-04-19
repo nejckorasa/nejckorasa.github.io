@@ -3,21 +3,9 @@ title: "Idempotent Processing with Kafka"
 date: 2023-02-04
 tags: ["Kafka", "Idempotency", "Software Architecture", "Event Driven Architecture", "Asynchronous Processing", "Transactional Outbox", "Distributed Systems"]
 categories: Software Engineering
+ShowToc: true
+TocOpen: true
 ---
-
-- [Duplicate Messages are Inevitable](#duplicate-messages-are-inevitable)
-- [Understanding the Intricacies of exactly-once semantics in Kafka](#understanding-the-intricacies-of-exactly-once-semantics-in-kafka)
-- [Achieving Idempotent Processing with Kafka](#achieving-idempotent-processing-with-kafka)
-    - [Idempotent Consumer Pattern](#idempotent-consumer-pattern)
-    - [Ordering of Messages](#ordering-of-messages)
-    - [Retry Handling](#retry-handling)
-    - [Idempotent Processing and External Side Effects](#idempotent-processing-and-external-side-effects)
-- [Publishing Output Messages to Kafka and Maintaining Data Consistency](#publishing-output-messages-to-kafka-and-maintaining-data-consistency)
-    - [The Simplest Solution](#the-simplest-solution)
-    - [Transactional Outbox Pattern](#transactional-outbox-pattern)
-    - [Without Transactional Outbox](#without-transactional-outbox)
-- [How it compares to Synchronous REST APIs](#how-it-compares-to-synchronous-rest-apis)
-- [Final Thoughts](#final-thoughts)
 
 ## Duplicate Messages are Inevitable
 
