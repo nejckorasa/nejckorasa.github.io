@@ -3,13 +3,15 @@ title: "Avoid Tight Coupling of Tests to Implementation Details"
 date: 2023-01-08
 tags: ["Testing", "Microservices", "Software Architecture"]
 categories: Software Engineering
+ShowToc: true
+TocOpen: false
 ---
 
 Building backend systems today will likely involve building many small, independent services that communicate and coordinate with one another to form a distributed system. While there are many resources available discussing the pros and cons of microservices, the architecture, and when it is appropriate to use, I want to focus on the functional testing of microservices and how it differs from traditional approaches.
 
 In my experience, the "best testing practices" have evolved with the introduction of microservices, and traditional _testing pyramids_ may not be the most effective or even potentially harmful in this context. In my work on various projects and companies, including the development of new digital banks and the migration of older systems to microservices as they scale, I have often encountered disagreements about the most appropriate testing strategies for microservices.
 
-### Why do we have tests?
+### Why do we have Tests?
 
 As software engineers, we rely on testing to verify that our code functions as expected. Testing should support refactoring, but it can sometimes make it more difficult. The purpose of testing is to define the intended behavior of the code, rather than the details of its implementation. In summary, tests should:
 

@@ -3,18 +3,9 @@ title: "Data Oriented Programming (DOP) in Java"
 date: 2025-04-18
 tags: ["Java", "OOO", "DOP", "Object Oriented Programming", "Design Patterns", "Pattern Matching"]
 categories: Software Engineering
+ShowToc: true
+TocOpen: true
 ---
-
-- [What is Data Oriented Programming?](#what-is-data-oriented-programming)
-- [Why Consider DOP? The Benefits](#why-consider-dop-the-benefits)
-- [Java's Embrace of Data](#javas-embrace-of-data)
-- [Textbook Example](#textbook-example)
-  - [Introducing New Behavior](#introducing-new-behavior)
-  - [Introducing New Data](#introducing-new-data)
-- [Handling Outcomes with Clarity](#handling-outcomes-with-clarity)
-- [In Conclusion: Clear Benefits of DOP and Modern Java](#in-conclusion-clear-benefits-of-dop-and-modern-java)
-- [References and Further Reading](#references-and-further-reading)
-- [What Do You Think?](#what-do-you-think)
 
 ## What is Data Oriented Programming?
 

@@ -3,6 +3,8 @@ title: "Stream unzip files in S3 with Java"
 date: 2022-10-22
 tags: ["Java", "S3", "AWS"]
 categories: Software Engineering
+ShowToc: true
+TocOpen: false
 ---
 
 I've been spending a lot of time with AWS S3 recently building data pipelines and have encountered a surprisingly non-trivial challenge of unzipping files in an S3 bucket. 
