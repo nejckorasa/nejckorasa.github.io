@@ -52,17 +52,9 @@ params:
 
   # home-info mode
   homeInfoParams:
-    Title: "About Me"
+    Title: "Code and Software Musings"
     Content: |
-      Experienced, results-driven and pragmatic Software Engineer with a BSc in Mathematics and Computer Science and over 9 years of experience in Agile environments. Possessing a deep understanding of software development principles and a passion for exploring new software architectures and technologies.
-  
-      -
-      
-      - Demonstrated expertise in designing, building, and deploying scalable, resilient software solutions, with a focus on distributed systems. Proven track record of leading technical teams, migrating legacy systems, building new systems from scratch, and designing big data processes.
-      
-      - 
-      
-      - Currently I am helping build Chase International Consumer digital bank at JPMorgan Chase.
+      Insights and tangents from my 11+ years in software development. Connect with me on [LinkedIn](https://www.linkedin.com/in/nejckorasa) to see my professional journey.
 
   socialIcons:
     - name: linkedin
@@ -130,7 +122,7 @@ markup:
   highlight:
     noClasses: false
     # anchorLineNos: true
-    # codeFences: true
+    codeFences: true
     # guessSyntax: true
     # lineNos: true
-    # style: monokai
+    style: monokai

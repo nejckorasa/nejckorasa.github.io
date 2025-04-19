@@ -109,7 +109,7 @@ sealed interface Result<T> {
 }
 
 public static Result<String> process() {
-	// Does some actual processing…
+    // Does some actual processing…
     if (operationSuccessful) {
         return new Ok("Success return value");
     } else {
