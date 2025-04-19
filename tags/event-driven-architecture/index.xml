@@ -5,20 +5,26 @@
     <link>https://nejckorasa.github.io/tags/event-driven-architecture/</link>
     <description>Recent content in Event Driven Architecture on Nejc Korasa</description>
     <image>
+      <title>Nejc Korasa</title>
       <url>https://avatars.githubusercontent.com/nejckorasa</url>
       <link>https://avatars.githubusercontent.com/nejckorasa</link>
     </image>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.146.5</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 04 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://nejckorasa.github.io/tags/event-driven-architecture/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 04 Feb 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://nejckorasa.github.io/tags/event-driven-architecture/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Idempotent Processing with Kafka</title>
       <link>https://nejckorasa.github.io/posts/idempotent-kafka-procesing/</link>
       <pubDate>Sat, 04 Feb 2023 00:00:00 +0000</pubDate>
-      
       <guid>https://nejckorasa.github.io/posts/idempotent-kafka-procesing/</guid>
-      <description>Duplicate Messages are Inevitable Understanding the Intricacies of exactly-once semantics in Kafka Achieving Idempotent Processing with Kafka Idempotent Consumer Pattern Ordering of Messages Retry Handling Idempotent Processing and External Side Effects Publishing Output Messages to Kafka and Maintaining Data Consistency The Simplest Solution Transactional Outbox Pattern Without Transactional Outbox How it compares to Synchronous REST APIs Final Thoughts Duplicate Messages are Inevitable Duplicate messages are an inherent aspect of message-based systems and can occur for various reasons.</description>
+      <description>&lt;h2 id=&#34;duplicate-messages-are-inevitable&#34;&gt;Duplicate Messages are Inevitable&lt;/h2&gt;
+&lt;p&gt;Duplicate messages are an inherent aspect of message-based systems and can occur for various reasons. In the context of Kafka, it is essential to ensure that your application is able to handle these duplicates effectively. As a Kafka consumer, there are several scenarios that can lead to the consumption of duplicate messages:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;There can be an actual duplicate message in the kafka topic you are consuming from. The consumer is reading 2 different messages that should be treated as duplicates.&lt;/li&gt;
+&lt;li&gt;You consume the same message more than once due to various error scenarios that can happen, either in your application, or in the communication with a Kafka broker.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To ensure the idempotent processing and handle these scenarios, it&amp;rsquo;s important to have a proper strategy to detect and handle duplicate messages.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

@@ -5,22 +5,28 @@
     <link>https://nejckorasa.github.io/tags/aws/</link>
     <description>Recent content in AWS on Nejc Korasa</description>
     <image>
+      <title>Nejc Korasa</title>
       <url>https://avatars.githubusercontent.com/nejckorasa</url>
       <link>https://avatars.githubusercontent.com/nejckorasa</link>
     </image>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.146.5</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 22 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://nejckorasa.github.io/tags/aws/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 22 Oct 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://nejckorasa.github.io/tags/aws/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Stream unzip files in S3 with Java</title>
       <link>https://nejckorasa.github.io/posts/s3-unzip/</link>
       <pubDate>Sat, 22 Oct 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://nejckorasa.github.io/posts/s3-unzip/</guid>
-      <description>I&amp;rsquo;ve been spending a lot of time with AWS S3 recently building data pipelines and have encountered a surprisingly non-trivial challenge of unzipping files in an S3 bucket. A few minutes with Google and StackOverflow made it clear many others have faced the same issue.
-I&amp;rsquo;ll explain a few options to handle the unzipping as well as the end solution which has led me to build nejckorasa/s3-stream-unzip.
-To sum up:</description>
+      <description>&lt;p&gt;I&amp;rsquo;ve been spending a lot of time with AWS S3 recently building data pipelines and have encountered a surprisingly non-trivial challenge of unzipping files in an S3 bucket.
+A few minutes with Google and StackOverflow made it clear many others have faced the same issue.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;ll explain a few options to handle the unzipping as well as the end solution which has led me to build &lt;a href=&#34;https://github.com/nejckorasa/s3-stream-unzip&#34;&gt;nejckorasa/s3-stream-unzip&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;To sum up:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;there is no support to unzip files in S3 in-line,&lt;/li&gt;
+&lt;li&gt;there also is no unzip built-in api available in AWS SDK.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In order to unzip you therefore need to download the files from S3, unzip and upload decompressed files back.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

@@ -5,119 +5,132 @@
     <link>https://nejckorasa.github.io/tags/</link>
     <description>Recent content in Tags on Nejc Korasa</description>
     <image>
+      <title>Nejc Korasa</title>
       <url>https://avatars.githubusercontent.com/nejckorasa</url>
       <link>https://avatars.githubusercontent.com/nejckorasa</link>
     </image>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.146.5</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 04 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://nejckorasa.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 18 Apr 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://nejckorasa.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Design Patterns</title>
+      <link>https://nejckorasa.github.io/tags/design-patterns/</link>
+      <pubDate>Fri, 18 Apr 2025 00:00:00 +0000</pubDate>
+      <guid>https://nejckorasa.github.io/tags/design-patterns/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>DOP</title>
+      <link>https://nejckorasa.github.io/tags/dop/</link>
+      <pubDate>Fri, 18 Apr 2025 00:00:00 +0000</pubDate>
+      <guid>https://nejckorasa.github.io/tags/dop/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Java</title>
+      <link>https://nejckorasa.github.io/tags/java/</link>
+      <pubDate>Fri, 18 Apr 2025 00:00:00 +0000</pubDate>
+      <guid>https://nejckorasa.github.io/tags/java/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Object Oriented Programming</title>
+      <link>https://nejckorasa.github.io/tags/object-oriented-programming/</link>
+      <pubDate>Fri, 18 Apr 2025 00:00:00 +0000</pubDate>
+      <guid>https://nejckorasa.github.io/tags/object-oriented-programming/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>OOO</title>
+      <link>https://nejckorasa.github.io/tags/ooo/</link>
+      <pubDate>Fri, 18 Apr 2025 00:00:00 +0000</pubDate>
+      <guid>https://nejckorasa.github.io/tags/ooo/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Pattern Matching</title>
+      <link>https://nejckorasa.github.io/tags/pattern-matching/</link>
+      <pubDate>Fri, 18 Apr 2025 00:00:00 +0000</pubDate>
+      <guid>https://nejckorasa.github.io/tags/pattern-matching/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Asynchronous Processing</title>
       <link>https://nejckorasa.github.io/tags/asynchronous-processing/</link>
       <pubDate>Sat, 04 Feb 2023 00:00:00 +0000</pubDate>
-      
       <guid>https://nejckorasa.github.io/tags/asynchronous-processing/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Distributed Systems</title>
       <link>https://nejckorasa.github.io/tags/distributed-systems/</link>
       <pubDate>Sat, 04 Feb 2023 00:00:00 +0000</pubDate>
-      
       <guid>https://nejckorasa.github.io/tags/distributed-systems/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Event Driven Architecture</title>
       <link>https://nejckorasa.github.io/tags/event-driven-architecture/</link>
       <pubDate>Sat, 04 Feb 2023 00:00:00 +0000</pubDate>
-      
       <guid>https://nejckorasa.github.io/tags/event-driven-architecture/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Idempotency</title>
       <link>https://nejckorasa.github.io/tags/idempotency/</link>
       <pubDate>Sat, 04 Feb 2023 00:00:00 +0000</pubDate>
-      
       <guid>https://nejckorasa.github.io/tags/idempotency/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Kafka</title>
       <link>https://nejckorasa.github.io/tags/kafka/</link>
       <pubDate>Sat, 04 Feb 2023 00:00:00 +0000</pubDate>
-      
       <guid>https://nejckorasa.github.io/tags/kafka/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Software Architecture</title>
       <link>https://nejckorasa.github.io/tags/software-architecture/</link>
       <pubDate>Sat, 04 Feb 2023 00:00:00 +0000</pubDate>
-      
       <guid>https://nejckorasa.github.io/tags/software-architecture/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Transactional Outbox</title>
       <link>https://nejckorasa.github.io/tags/transactional-outbox/</link>
       <pubDate>Sat, 04 Feb 2023 00:00:00 +0000</pubDate>
-      
       <guid>https://nejckorasa.github.io/tags/transactional-outbox/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Microservices</title>
       <link>https://nejckorasa.github.io/tags/microservices/</link>
       <pubDate>Sun, 08 Jan 2023 00:00:00 +0000</pubDate>
-      
       <guid>https://nejckorasa.github.io/tags/microservices/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Testing</title>
       <link>https://nejckorasa.github.io/tags/testing/</link>
       <pubDate>Sun, 08 Jan 2023 00:00:00 +0000</pubDate>
-      
       <guid>https://nejckorasa.github.io/tags/testing/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>AWS</title>
       <link>https://nejckorasa.github.io/tags/aws/</link>
       <pubDate>Sat, 22 Oct 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://nejckorasa.github.io/tags/aws/</guid>
       <description></description>
     </item>
-    
-    <item>
-      <title>Java</title>
-      <link>https://nejckorasa.github.io/tags/java/</link>
-      <pubDate>Sat, 22 Oct 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://nejckorasa.github.io/tags/java/</guid>
-      <description></description>
-    </item>
-    
     <item>
       <title>S3</title>
       <link>https://nejckorasa.github.io/tags/s3/</link>
       <pubDate>Sat, 22 Oct 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://nejckorasa.github.io/tags/s3/</guid>
       <description></description>
     </item>
-    
   </channel>
 </rss>

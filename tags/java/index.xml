@@ -5,22 +5,37 @@
     <link>https://nejckorasa.github.io/tags/java/</link>
     <description>Recent content in Java on Nejc Korasa</description>
     <image>
+      <title>Nejc Korasa</title>
       <url>https://avatars.githubusercontent.com/nejckorasa</url>
       <link>https://avatars.githubusercontent.com/nejckorasa</link>
     </image>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.146.5</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 22 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://nejckorasa.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 18 Apr 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://nejckorasa.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Data Oriented Programming (DOP) in Java</title>
+      <link>https://nejckorasa.github.io/posts/data-oriented-programming-in-java/</link>
+      <pubDate>Fri, 18 Apr 2025 00:00:00 +0000</pubDate>
+      <guid>https://nejckorasa.github.io/posts/data-oriented-programming-in-java/</guid>
+      <description>&lt;h2 id=&#34;what-is-data-oriented-programming&#34;&gt;What is Data Oriented Programming?&lt;/h2&gt;
+&lt;p&gt;Data Oriented Programming (DOP) is gaining momentum in the Java ecosystem due to recent language features streamlining its adoption. While conceptually straightforward, DOP offers significant advantages. But what is it?&lt;/p&gt;
+&lt;p&gt;How do we build our objects? Where does the state go? Where does the behavior go? Within OOO you could just bundle state and behavior together. But what if we separated this? What if data became the primary focus, with logic completely separated? This is the central idea of Data Oriented Programming (DOP), simple.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Stream unzip files in S3 with Java</title>
       <link>https://nejckorasa.github.io/posts/s3-unzip/</link>
       <pubDate>Sat, 22 Oct 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://nejckorasa.github.io/posts/s3-unzip/</guid>
-      <description>I&amp;rsquo;ve been spending a lot of time with AWS S3 recently building data pipelines and have encountered a surprisingly non-trivial challenge of unzipping files in an S3 bucket. A few minutes with Google and StackOverflow made it clear many others have faced the same issue.
-I&amp;rsquo;ll explain a few options to handle the unzipping as well as the end solution which has led me to build nejckorasa/s3-stream-unzip.
-To sum up:</description>
+      <description>&lt;p&gt;I&amp;rsquo;ve been spending a lot of time with AWS S3 recently building data pipelines and have encountered a surprisingly non-trivial challenge of unzipping files in an S3 bucket.
+A few minutes with Google and StackOverflow made it clear many others have faced the same issue.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;ll explain a few options to handle the unzipping as well as the end solution which has led me to build &lt;a href=&#34;https://github.com/nejckorasa/s3-stream-unzip&#34;&gt;nejckorasa/s3-stream-unzip&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;To sum up:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;there is no support to unzip files in S3 in-line,&lt;/li&gt;
+&lt;li&gt;there also is no unzip built-in api available in AWS SDK.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In order to unzip you therefore need to download the files from S3, unzip and upload decompressed files back.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>
