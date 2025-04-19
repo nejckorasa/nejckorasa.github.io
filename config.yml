@@ -1,8 +1,10 @@
 baseURL: "https://nejckorasa.github.io"
 languageCode: en-us
 title: Nejc Korasa
-paginate: 5
 theme: PaperMod
+
+pagination:
+  pagerSize: 10
 
 enableRobotsTXT: true
 buildDrafts: false
@@ -67,8 +69,8 @@ params:
       url: "https://www.linkedin.com/in/nejckorasa"
     - name: github
       url: "https://github.com/nejckorasa"
-    - name: twitter
-      url: "https://twitter.com/nejckorasa"
+    - name: x
+      url: "https://x.com/nejckorasa"
     - name: dev
       url: "https://dev.to/nejckorasa"
     - name: medium
