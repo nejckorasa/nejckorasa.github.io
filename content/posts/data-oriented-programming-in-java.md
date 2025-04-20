@@ -11,9 +11,13 @@ TocOpen: true
 
 Data Oriented Programming (DOP) is gaining momentum in the Java ecosystem due to recent language features streamlining its adoption. While conceptually straightforward, DOP offers significant advantages. But what is it?
 
-How do we build our objects? Where does the state go? Where does the behavior go? Within OOO you could just bundle state and behavior together. But what if we separated this? What if data became the primary focus, with logic completely separated? This is the central idea of Data Oriented Programming (DOP), simple.
+How do we build our objects? Where does the state go? Where does the behavior go? OOO encourages us to bundle state and behavior together. But what if we separated this? What if data became the primary focus, with logic completely separated? This is the central idea of Data Oriented Programming (DOP), simple.
 
-So instead of emphasizing objects with bundled state and methods, **DOP centers around simple data structures**. The application's logic and behavior are implemented as independent functions that operate on this data. The data itself is passive; the intelligence lies in the functions.
+So instead of emphasizing objects with bundled state and methods, **DOP centers around simple data structures**. The application's logic and behavior are implemented as independent functions that operate on this data. The data itself is passive; the intelligence lies in the functions. [Inside Java](https://inside.java/2024/05/23/dop-v1-1-introduction/) defines DOP with the following principles:
+- Model data immutably and transparently.
+- Model the data, the whole data, and nothing but the data.
+- Make illegal states unrepresentable.
+- Separate operations from data.
 
 ## Why Consider DOP? The Benefits
 
@@ -22,7 +26,7 @@ Why might you choose this approach? Here are a few compelling reasons:
 * **Simpler and More Readable Code:** Separating data from behavior leads to clearer data structures and focused functions, making the code easier to understand and follow.
 * **Improved Maintainability:** With simple data structures and distinct logic, modifications are less likely to create ripple effects across the codebase.
 * **Enhanced Code Optionality and Reduced Coupling:** Adding new functionality often involves creating new functions rather than modifying existing data structures, leading to less invasive changes and reduced coupling between different parts of the system.
-* **Easier Testing:** Functions operating on plain data are often easier to test in isolation.
+* **Easier Testing:** Functions operating on plain data with simple inputs and outputs are often easier to test in isolation.
 
 ## Java's Embrace of Data
 
@@ -64,7 +68,7 @@ With DOP, we define the data structures and then create separate functions to op
 ```java
 public Point getCenter(Shape shape) {
     return switch (shape) {
-        case Circle(Point center, double _) -> center;
+        case Circle(Point center, double _) -> new Point(center.x, center.y);
         case Rectangle(Point topLeft, Point bottomRight) ->
             new Point(
                 (topLeft.x + bottomRight.x) / 2,
@@ -114,7 +118,9 @@ String result = switch (process()) {
 };
 ```
 
-This approach allows callers to easily handle all possible results using a `switch`expression, promoting explicit and type-safe result processing. This eliminates ambiguity about potential return values and encourages explicit error handling.
+This approach allows callers to easily handle all possible results using a `switch`expression, promoting explicit and type-safe result processing. It eliminates ambiguity about potential return values and encourages explicit error handling. 
+
+See [this InfoQ article](https://www.infoq.com/articles/data-oriented-programming-java/) with some more examples of complex return types and how they can be implemented in DOP style.
 
 ## In Conclusion: Clear Benefits of DOP and Modern Java
 
@@ -129,9 +135,10 @@ By focusing on data and keeping it separate from business logic and processing, 
 
 ## References and Further Reading
 
-- [Data Oriented Programming InfoQ Article](https://www.infoq.com/articles/data-oriented-programming-java/)
-- [Data-Oriented Programming in Java YouTube Video](https://www.youtube.com/watch?v=UQAw3pvZPCY)
-- [Data Oriented Programming in Java 21 by Nicolai Parlog](https://www.youtube.com/watch?v=8FRU_aGY4mY)
+- [Inside Java DOP v1.1](https://inside.java/2024/05/23/dop-v1-1-introduction/)
+- [Data Oriented Programming in Java InfoQ Article](https://www.infoq.com/articles/data-oriented-programming-java/)
+- [Data-Oriented Programming in Java on YouTube](https://www.youtube.com/watch?v=UQAw3pvZPCY)
+- [Data Oriented Programming in Java 21 by Nicolai Parlog on YouTube](https://www.youtube.com/watch?v=8FRU_aGY4mY)
 
 ## What Do You Think?
 
