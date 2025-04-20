@@ -9,7 +9,7 @@
       <url>https://avatars.githubusercontent.com/nejckorasa</url>
       <link>https://avatars.githubusercontent.com/nejckorasa</link>
     </image>
-    <generator>Hugo -- 0.146.5</generator>
+    <generator>Hugo -- 0.146.6</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 18 Apr 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://nejckorasa.github.io/tags/dop/index.xml" rel="self" type="application/rss+xml" />
@@ -20,7 +20,7 @@
       <guid>https://nejckorasa.github.io/posts/data-oriented-programming-in-java/</guid>
       <description>&lt;h2 id=&#34;what-is-data-oriented-programming&#34;&gt;What is Data Oriented Programming?&lt;/h2&gt;
 &lt;p&gt;Data Oriented Programming (DOP) is gaining momentum in the Java ecosystem due to recent language features streamlining its adoption. While conceptually straightforward, DOP offers significant advantages. But what is it?&lt;/p&gt;
-&lt;p&gt;How do we build our objects? Where does the state go? Where does the behavior go? Within OOO you could just bundle state and behavior together. But what if we separated this? What if data became the primary focus, with logic completely separated? This is the central idea of Data Oriented Programming (DOP), simple.&lt;/p&gt;</description>
+&lt;p&gt;How do we build our objects? Where does the state go? Where does the behavior go? OOO encourages us to bundle state and behavior together. But what if we separated this? What if data became the primary focus, with logic completely separated? This is the central idea of Data Oriented Programming (DOP), simple.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
