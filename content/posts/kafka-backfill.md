@@ -1,3 +1,12 @@
+---
+title: "Kafka Backfills Done Right: A Guide to Rehydrating Services"
+date: 2025-09-25
+tags: ["Kafka", "Data Engineering", "Microservices", "Event Sourcing", "ETL", "Schema Evolution", "Software Architecture", "Distributed Systems"]
+categories: Software Engineering
+ShowToc: true
+TocOpen: true
+---
+
 # Kafka Backfills Done Right: A Guide to Rehydrating Services
 
 ## 1. The Inevitable Backfill: Why We Need to Rehydrate Data
