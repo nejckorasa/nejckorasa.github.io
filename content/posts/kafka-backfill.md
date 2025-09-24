@@ -47,7 +47,7 @@ The core of this pattern is a generic, on-demand ETL job (AWS Glue or Spark is a
 
 This "Backfill Publisher" job reads the data from S3, transforms it, and produces it onto the specified Kafka topic. It is completely decoupled from the service that will eventually consume the data.
 
-[![Glue Job Diagram](/static/glue-job-diagram.png)](/static/glue-job-diagram.png)
+[![Glue Job Diagram](/glue-diagram.png)](/glue-diagram.png)
 
 #### Handling Schema Evolution in the Glue Job
 
@@ -98,7 +98,7 @@ How you switch your application to use the new table depends on your schema:
 * **Simple Case (Backward-Compatible Schema):** If `orders_v2` has a schema that your *current* application code can read, you might be able to perform a simple, atomic swap.
 * **Complex Case (Breaking Schema Change):** If `orders_v2` has a different structure that would break your existing code, you need a different strategy and should follow the [Parallel Change](https://martinfowler.com/bliki/ParallelChange.html) (expand and contract) pattern.
 
-[![Zero Downtime Rebuild](/static/zero-downtime-rebuild.png)](/static/zero-downtime-rebuild.png)
+[![Zero Downtime Rebuild](/zero-downtime-rebuild.png)](/zero-downtime-rebuild.png)
 
 ## 4. Accelerating Rehydration with Snapshots
 
