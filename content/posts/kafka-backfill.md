@@ -69,7 +69,7 @@ Getting the data back into Kafka is only half the challenge. The consuming servi
 
 ### Idempotent Processing is Non-Negotiable
 
-When a service re-processes historical events, it will inevitably encounter data it has already seen. The consumer logic must be idempotent, meaning that processing the same event multiple times produces the same result as processing it once.
+When a service re-processes historical events, it will inevitably encounter data it has already seen. The consumer logic must be **idempotent**, meaning that processing the same event multiple times produces the same result as processing it once. For a detailed guide on implementing idempotent consumers in Kafka, see [Idempotent Kafka Processing](/posts/idempotent-kafka-procesing/).
 
 ### Isolation: New vs. Existing Consumers
 
