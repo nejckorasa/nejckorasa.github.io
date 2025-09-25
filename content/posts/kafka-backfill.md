@@ -1,15 +1,19 @@
 ---
-title: "Kafka Backfills Done Right: A Guide to Rehydrating Services"
+title: "Kafka Backfills in Practice: Patterns for Historical Data Access"
 date: 2025-09-25
-tags: ["Kafka", "Data Engineering", "Microservices", "Event Driven Architecture", "ETL", "Schema Evolution", "Software Architecture", "Distributed Systems"]
+tags: ["Data Engineering", "Kafka", "Data Backfill", "Event Driven Architecture", "ETL", "Data Lake", "AWS", "Microservices", "Distributed Systems"]
 categories: Software Engineering
 ShowToc: true
 TocOpen: true
 ---
 
-# Kafka Backfills Done Right: A Guide to Rehydrating Services
+# Kafka Backfills in Practice: Patterns for Historical Data Access
 
-## 1. Why We Need to Rehydrate Data
+Event-driven architectures with Kafka have become a standard way of building modern microservices. At first, everything works smoothly - services communicate via events, state is rebuilt from event streams, and the system scales well. But as your data grows, you face an inevitable challenge: what happens when you need to access historical events that are no longer in Kafka?
+
+This post explores patterns for handling this challenge, based on real production experience with systems processing millions of events daily.
+
+## 1. The Historical Data Challenge
 
 Many of us have adopted **Event-Driven Architecture** as a core pattern in our microservice architectures. Using an immutable log of events for service communication, with Kafka as its backbone, provides incredible flexibility and scalability. In a perfect world, we would keep this event log in Kafka forever. In the real world, however, storing an ever-growing history on high-performance broker disks is prohibitively expensive.
 
@@ -23,11 +27,11 @@ This works perfectly until one of these classic scenarios demands access to the 
 
 The core problem is the same: how do we gracefully rehydrate our services with data that now lives in cold storage?
 
-## 2. The Two Paths to Rehydration
+## 2. Core Rehydration Patterns
 
-Here are the primary architectural choices for getting historical data from cold storage back to your services.
+Three main architectural patterns for accessing historical data, each with its own trade-offs and requirements.
 
-### Option 1: Kafka Tiered Storage
+### Pattern 1: Kafka Tiered Storage
 
 The most elegant solution is one that eliminates the need for a separate ETL process: using a Kafka distribution that supports [Tiered Storage](https://docs.confluent.io/platform/current/kafka/tiered-storage.html). This feature allows Kafka to automatically move older event segments to object storage like S3, while the topic's log remains logically intact and infinitely queryable. The data is physically in two places, but Kafka presents it as a single, seamless stream.
 
@@ -36,9 +40,9 @@ With Tiered Storage, a backfill becomes a trivial operational task. The process 
 1.  **Reset the consumer offset.** Use standard Kafka tooling to tell your service's consumer group to start reading from the beginning of the topic or a specific timestamp. Ideally, you would create a separate consumer to handle the backfill.
 2.  **Let the consumer run.** Kafka automatically fetches the older data from S3 and streams it to your consumer, just as it would with live data.
 
-### Option 2: The Pragmatic ETL Pattern (e.g., AWS Glue Trigger)
+### Pattern 2: ETL Pattern with Kafka
 
-But what if you don’t have Tiered Storage? This is a very common scenario. You need a safe, reliable bridge between your S3 data lake and Kafka. Instead of writing ad-hoc scripts, you should invest in a reusable backfill platform.
+If you don’t have Tiered Storage? You need a safe, reliable bridge between your S3 data lake and Kafka. Instead of writing ad-hoc scripts, you should invest in a reusable backfill platform.
 
 The core of this pattern is a generic, on-demand ETL job (AWS Glue or Spark is a perfect fit) that is triggered by a simple API call. A service team makes a request specifying:
 
@@ -63,7 +67,18 @@ The Glue job's responsibility is to pre-process the historical data so that it a
 
 This means the service consumer's logic remains incredibly simple. It only needs to be aware of the latest schema and doesn't require any complex, backward-compatible code because the backfill pipeline has already handled that complexity.
 
-## 3. Handling Rehydration in a Service: The Consumer's Responsibility
+### Pattern 3: Direct Data Lake Access
+
+An alternative approach bypasses Kafka entirely: direct lake access with gradual rehydration. If you have query engines like [Trino](https://trino.io/) set up to access your data lake, you can implement a simpler solution.
+
+Instead of moving data through Kafka, your service can implement a scheduled job that directly queries historical data from S3 via Trino. The job fetches and processes data in controlled chunks, allowing you to:
+
+* Control the pace of rehydration to prevent overwhelming your service
+* Process historical data in parallel with real-time events
+* Skip the complexity of temporary Kafka topics and ETL jobs
+
+[![Trino Backfill Job](/trino-backfill-job.png)](/trino-backfill-job.png)
+## 3. Kafka Backfill Implementation Strategies
 
 Getting the data back into Kafka is only half the challenge. The consuming service must be architected to handle rehydration safely, without disrupting live traffic.
 
@@ -98,11 +113,21 @@ How you switch your application to use the new table depends on your schema:
 * **Simple Case (Backward-Compatible Schema):** If `orders_v2` has a schema that your *current* application code can read, you might be able to perform a simple, atomic swap.
 * **Complex Case (Breaking Schema Change):** If `orders_v2` has a different structure that would break your existing code, you need a different strategy and should follow the [Parallel Change](https://martinfowler.com/bliki/ParallelChange.html) (expand and contract) pattern.
 
-[![Zero Downtime Rebuild](/zero-downtime-rebuild.png)](/zero-downtime-rebuild.png)
+[![Zero Downtime Backfill](/zero-downtime-backfill.png)](/zero-downtime-backfill.png)
 
-## 4. Accelerating Rehydration with Snapshots
+## 4. Performance Optimization
 
 Replaying every event from the beginning of time can be slow and resource-intensive. For many use cases, you can accelerate the process by using a **snapshot**—a precomputed, materialized state of your data. There are two primary ways to implement this:
 
 1.  **State Snapshots:** A periodically generated full snapshot of an entity's state. Rehydration then involves loading this snapshot and replaying only the events from Kafka that have occurred *since* the snapshot was created.
 2.  **Kafka-Native Snapshots (Log Compaction):** For services that only need the *current state* of an entity, Kafka's [log compaction](https://docs.confluent.io/kafka/design/log_compaction.html) provides a powerful, built-in solution. A compacted topic automatically retains at least the last known value for each message key. Reading this topic from the beginning provides a consumer with a full, live snapshot of the current state.
+
+
+## 5. Operational Considerations
+
+Regardless of the pattern, successful backfills require careful operational planning:
+
+* **Monitoring:** Track consumer lag, processing rates, and resource utilization
+* **Failure Handling:** Make the process resumable by tracking progress and failed records
+* **Cost Management:** Consider licensing costs (Kafka/Trino), compute resources, and operational overhead
+* **Testing:** Start with small batches and gradually increase load
