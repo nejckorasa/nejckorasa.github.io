@@ -11,11 +11,9 @@ TocOpen: true
 
 Event-driven architectures with Kafka have become a standard way of building modern microservices. At first, everything works smoothly - services communicate via events, state is rebuilt from event streams, and the system scales well. But as your data grows, you face an inevitable challenge: what happens when you need to access historical events that are no longer in Kafka?
 
-This post explores patterns for handling this challenge, based on real production experience with systems processing millions of events daily.
+## 1. The Data Retention Problem
 
-## 1. The Historical Data Challenge
-
-Many of us have adopted **Event-Driven Architecture** as a core pattern in our microservice architectures. Using an immutable log of events for service communication, with Kafka as its backbone, provides incredible flexibility and scalability. In a perfect world, we would keep this event log in Kafka forever. In the real world, however, storing an ever-growing history on high-performance broker disks is prohibitively expensive.
+In a perfect world, we would keep event log in Kafka forever. In the real world, however, storing an ever-growing history on high-performance broker disks is prohibitively expensive.
 
 This leads to the inevitable compromise: **data retention policies**. We keep a few weeks or months of events in Kafka for real-time processing and offload the rest to cheaper, long-term cold storage like Amazon S3. This process becomes part of a general Data Lake sink strategy.
 
@@ -53,25 +51,19 @@ This "Backfill Publisher" job reads the data from S3, transforms it, and produce
 
 [![Glue Job Diagram](/glue-diagram.png)](/glue-diagram.png)
 
-#### Handling Schema Evolution in the Glue Job
+#### Handling Schema Evolution
 
-The goal is to make the consumer's experience identical, regardless of where the data originates. With Tiered Storage, schema evolution is handled transparently; ideally, a Glue Job would replicate this.
-
-**The Strategy: Evolve-on-Read**
-
-The Glue job's responsibility is to pre-process the historical data so that it appears identical to live data for the consumer. Using a schema registry, the job performs a "schema-on-read" transformation:
+Using a schema registry, the Glue job performs a "schema-on-read" transformation to make the consumer's experience identical, regardless of data origin. The process:
 
 1.  **It reads** the raw data from S3, which may use many different historical Avro schema versions.
 2.  **It evolves** each record to conform to the single, latest schema version, automatically adding default values for new fields and ignoring removed ones.
 3.  **It writes** the clean, transformed data to the backfill Kafka topic.
 
-This means the service consumer's logic remains incredibly simple. It only needs to be aware of the latest schema and doesn't require any complex, backward-compatible code because the backfill pipeline has already handled that complexity.
+This means the service consumer only needs to be aware of the latest schema, as the backfill pipeline handles all schema evolution complexity.
 
 ### Pattern 3: Direct Data Lake Access
 
-An alternative approach bypasses Kafka entirely: direct lake access with gradual rehydration. If you have query engines like [Trino](https://trino.io/) set up to access your data lake, you can implement a simpler solution.
-
-Instead of moving data through Kafka, your service can implement a scheduled job that directly queries historical data from S3 via Trino. The job fetches and processes data in controlled chunks, allowing you to:
+If you have query engines like [Trino](https://trino.io/) set up, you can bypass Kafka entirely. Your service can implement a scheduled job that directly queries historical data from S3 via Trino. The job fetches and processes data in controlled chunks, allowing you to:
 
 * Control the pace of rehydration to prevent overwhelming your service
 * Process historical data in parallel with real-time events
@@ -88,10 +80,10 @@ When a service re-processes historical events, it will inevitably encounter data
 
 ### Isolation: New vs. Existing Consumers
 
-It is almost always better to create a new, dedicated Kafka consumer for the backfill. This is critical for safety, because:
+Create a new, dedicated Kafka consumer for the backfill. This provides:
 
-* **Isolation:** Isolating the high-volume, low-priority backfill traffic from the live production topic. This prevents a backfill from causing lag and impacting real-time processing.
-* **Control:** Separate control of the consumer to manage its pace to avoid overwhelming the service and its database.
+* **Safety:** Isolate high-volume backfill traffic from the live production topic to prevent lag
+* **Control:** Manage processing pace to avoid overwhelming the service and database
 
 ### Zero-Downtime Rebuilds: The Versioned Data Swap
 
