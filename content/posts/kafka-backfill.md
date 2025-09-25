@@ -74,6 +74,8 @@ For many use cases, like enriching data for an analytics model or rebuilding a n
 
 For critical, stateful services that cannot have downtime, a more sophisticated strategy is required. This strategy rebuilds a system using the **Shadow Migration** pattern. It's a specific implementation of **[Parallel Change](https://martinfowler.com/bliki/ParallelChange.html)**, sometimes called the **[Shadow Table Strategy](https://www.infoq.com/articles/shadow-table-strategy-data-migration/)**, where a "shadow" process runs alongside the live service before a final, coordinated cutover.
 
+[![Shadow Migration Sequence Diagram](/shadow-migration.png)](/shadow-migration.png)
+
 1.  **Run in Parallel**: A **"shadow" consumer** reads the entire event history, writing to the new table (`v2`). Simultaneously, the existing "live" consumer continues its normal operation, writing only to the old table (`v1`).
 
 2.  **Catch Up**: The shadow consumer runs until it has processed all historical data and is keeping up with the live topic in near real-time.
