@@ -9,10 +9,73 @@
       <url>https://avatars.githubusercontent.com/nejckorasa</url>
       <link>https://avatars.githubusercontent.com/nejckorasa</link>
     </image>
-    <generator>Hugo -- 0.150.0</generator>
+    <generator>Hugo -- 0.150.1</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 18 Apr 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 25 Sep 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://nejckorasa.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AWS</title>
+      <link>https://nejckorasa.github.io/tags/aws/</link>
+      <pubDate>Thu, 25 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>https://nejckorasa.github.io/tags/aws/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Data Backfill</title>
+      <link>https://nejckorasa.github.io/tags/data-backfill/</link>
+      <pubDate>Thu, 25 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>https://nejckorasa.github.io/tags/data-backfill/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Data Engineering</title>
+      <link>https://nejckorasa.github.io/tags/data-engineering/</link>
+      <pubDate>Thu, 25 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>https://nejckorasa.github.io/tags/data-engineering/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Data Lake</title>
+      <link>https://nejckorasa.github.io/tags/data-lake/</link>
+      <pubDate>Thu, 25 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>https://nejckorasa.github.io/tags/data-lake/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Distributed Systems</title>
+      <link>https://nejckorasa.github.io/tags/distributed-systems/</link>
+      <pubDate>Thu, 25 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>https://nejckorasa.github.io/tags/distributed-systems/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>ETL</title>
+      <link>https://nejckorasa.github.io/tags/etl/</link>
+      <pubDate>Thu, 25 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>https://nejckorasa.github.io/tags/etl/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Event Driven Architecture</title>
+      <link>https://nejckorasa.github.io/tags/event-driven-architecture/</link>
+      <pubDate>Thu, 25 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>https://nejckorasa.github.io/tags/event-driven-architecture/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Kafka</title>
+      <link>https://nejckorasa.github.io/tags/kafka/</link>
+      <pubDate>Thu, 25 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>https://nejckorasa.github.io/tags/kafka/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Microservices</title>
+      <link>https://nejckorasa.github.io/tags/microservices/</link>
+      <pubDate>Thu, 25 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>https://nejckorasa.github.io/tags/microservices/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Design Patterns</title>
       <link>https://nejckorasa.github.io/tags/design-patterns/</link>
@@ -63,31 +126,10 @@
       <description></description>
     </item>
     <item>
-      <title>Distributed Systems</title>
-      <link>https://nejckorasa.github.io/tags/distributed-systems/</link>
-      <pubDate>Sat, 04 Feb 2023 00:00:00 +0000</pubDate>
-      <guid>https://nejckorasa.github.io/tags/distributed-systems/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Event Driven Architecture</title>
-      <link>https://nejckorasa.github.io/tags/event-driven-architecture/</link>
-      <pubDate>Sat, 04 Feb 2023 00:00:00 +0000</pubDate>
-      <guid>https://nejckorasa.github.io/tags/event-driven-architecture/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>Idempotency</title>
       <link>https://nejckorasa.github.io/tags/idempotency/</link>
       <pubDate>Sat, 04 Feb 2023 00:00:00 +0000</pubDate>
       <guid>https://nejckorasa.github.io/tags/idempotency/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Kafka</title>
-      <link>https://nejckorasa.github.io/tags/kafka/</link>
-      <pubDate>Sat, 04 Feb 2023 00:00:00 +0000</pubDate>
-      <guid>https://nejckorasa.github.io/tags/kafka/</guid>
       <description></description>
     </item>
     <item>
@@ -105,24 +147,10 @@
       <description></description>
     </item>
     <item>
-      <title>Microservices</title>
-      <link>https://nejckorasa.github.io/tags/microservices/</link>
-      <pubDate>Sun, 08 Jan 2023 00:00:00 +0000</pubDate>
-      <guid>https://nejckorasa.github.io/tags/microservices/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>Testing</title>
       <link>https://nejckorasa.github.io/tags/testing/</link>
       <pubDate>Sun, 08 Jan 2023 00:00:00 +0000</pubDate>
       <guid>https://nejckorasa.github.io/tags/testing/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>AWS</title>
-      <link>https://nejckorasa.github.io/tags/aws/</link>
-      <pubDate>Sat, 22 Oct 2022 00:00:00 +0000</pubDate>
-      <guid>https://nejckorasa.github.io/tags/aws/</guid>
       <description></description>
     </item>
     <item>

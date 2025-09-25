@@ -2,14 +2,50 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://nejckorasa.github.io/tags/aws/</loc>
+    <lastmod>2025-09-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://nejckorasa.github.io/categories/</loc>
+    <lastmod>2025-09-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://nejckorasa.github.io/tags/data-backfill/</loc>
+    <lastmod>2025-09-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://nejckorasa.github.io/tags/data-engineering/</loc>
+    <lastmod>2025-09-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://nejckorasa.github.io/tags/data-lake/</loc>
+    <lastmod>2025-09-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://nejckorasa.github.io/tags/distributed-systems/</loc>
+    <lastmod>2025-09-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://nejckorasa.github.io/tags/etl/</loc>
+    <lastmod>2025-09-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://nejckorasa.github.io/tags/event-driven-architecture/</loc>
+    <lastmod>2025-09-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://nejckorasa.github.io/tags/kafka/</loc>
+    <lastmod>2025-09-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://nejckorasa.github.io/posts/kafka-backfill/</loc>
+    <lastmod>2025-09-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://nejckorasa.github.io/tags/microservices/</loc>
+    <lastmod>2025-09-25T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://nejckorasa.github.io/</loc>
     <lastmod>2025-09-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://nejckorasa.github.io/posts/</loc>
     <lastmod>2025-09-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://nejckorasa.github.io/categories/</loc>
-    <lastmod>2025-04-18T00:00:00+00:00</lastmod>
+    <loc>https://nejckorasa.github.io/categories/software-engineering/</loc>
+    <lastmod>2025-09-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://nejckorasa.github.io/tags/</loc>
+    <lastmod>2025-09-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://nejckorasa.github.io/posts/data-oriented-programming-in-java/</loc>
     <lastmod>2025-04-18T00:00:00+00:00</lastmod>
@@ -32,28 +68,13 @@
     <loc>https://nejckorasa.github.io/tags/pattern-matching/</loc>
     <lastmod>2025-04-18T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://nejckorasa.github.io/categories/software-engineering/</loc>
-    <lastmod>2025-04-18T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://nejckorasa.github.io/tags/</loc>
-    <lastmod>2025-04-18T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://nejckorasa.github.io/tags/asynchronous-processing/</loc>
-    <lastmod>2023-02-04T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://nejckorasa.github.io/tags/distributed-systems/</loc>
-    <lastmod>2023-02-04T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://nejckorasa.github.io/tags/event-driven-architecture/</loc>
     <lastmod>2023-02-04T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://nejckorasa.github.io/tags/idempotency/</loc>
     <lastmod>2023-02-04T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://nejckorasa.github.io/posts/idempotent-kafka-procesing/</loc>
-    <lastmod>2023-02-04T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://nejckorasa.github.io/tags/kafka/</loc>
     <lastmod>2023-02-04T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://nejckorasa.github.io/tags/software-architecture/</loc>
@@ -65,14 +86,8 @@
     <loc>https://nejckorasa.github.io/posts/microservice-testing/</loc>
     <lastmod>2023-01-08T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://nejckorasa.github.io/tags/microservices/</loc>
-    <lastmod>2023-01-08T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://nejckorasa.github.io/tags/testing/</loc>
     <lastmod>2023-01-08T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://nejckorasa.github.io/tags/aws/</loc>
-    <lastmod>2022-10-22T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://nejckorasa.github.io/tags/s3/</loc>
     <lastmod>2022-10-22T00:00:00+00:00</lastmod>
