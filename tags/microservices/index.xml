@@ -14,12 +14,11 @@
     <lastBuildDate>Thu, 25 Sep 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://nejckorasa.github.io/tags/microservices/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Kafka Backfills in Practice: A Blueprint for Accessing Historical Data</title>
+      <title>Kafka Backfill Playbook: Accessing Historical Data</title>
       <link>https://nejckorasa.github.io/posts/kafka-backfill/</link>
       <pubDate>Thu, 25 Sep 2025 00:00:00 +0000</pubDate>
       <guid>https://nejckorasa.github.io/posts/kafka-backfill/</guid>
-      <description>&lt;h1 id=&#34;kafka-backfills-in-practice-a-blueprint-for-accessing-historical-data&#34;&gt;Kafka Backfills in Practice: A Blueprint for Accessing Historical Data&lt;/h1&gt;
-&lt;p&gt;Event-driven architectures with Kafka have become a standard way of building modern microservices. At first, everything works smoothly - services communicate via events, state is rebuilt from event streams, and the system scales well. But as your data grows, you face an inevitable challenge: what happens when you need to access historical events that are no longer in Kafka?&lt;/p&gt;
+      <description>&lt;p&gt;Event-driven architectures with Kafka have become a standard way of building modern microservices. At first, everything works smoothly - services communicate via events, state is rebuilt from event streams, and the system scales well. But as your data grows, you face an inevitable challenge: what happens when you need to access historical events that are no longer in Kafka?&lt;/p&gt;
 &lt;h2 id=&#34;1-the-problem-finite-retention--the-need-for-backfills&#34;&gt;1. The Problem: Finite Retention &amp;amp; The Need for Backfills&lt;/h2&gt;
 &lt;p&gt;In a perfect world, we would keep every event log in Kafka forever. In the real world, however, storing an ever-growing history on high-performance broker disks is prohibitively expensive.&lt;/p&gt;</description>
     </item>
