@@ -71,6 +71,8 @@ params:
       url: "https://medium.com/@nejckorasa"
     - name: stackoverflow
       url: "https://stackoverflow.com/users/4420094/nejckorasa"
+    - name: buymeacoffee
+      url: "https://buymeacoffee.com/nejc"
     - name: rss
 
   cover:
