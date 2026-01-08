@@ -1,4 +1,0 @@
-[submodule "themes/PaperMod"]
-	path = themes/PaperMod
-	url = https://github.com/jakebailey/hugo-PaperMod.git
-	branch = hugo-0.146
