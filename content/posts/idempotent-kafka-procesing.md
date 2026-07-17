@@ -1,5 +1,6 @@
 ---
 title: "Idempotent Processing with Kafka"
+description: "Why duplicate messages are inevitable in Kafka, and practical patterns for processing them idempotently to achieve end-to-end exactly-once semantics."
 date: 2023-02-04
 tags: ["Kafka", "Idempotency", "Software Architecture", "Event Driven Architecture", "Asynchronous Processing", "Transactional Outbox", "Distributed Systems"]
 categories: Software Engineering

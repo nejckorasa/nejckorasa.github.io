@@ -1,0 +1,25 @@
+[[main]]
+  name = "Archive"
+  pageRef = "posts"
+  weight = 10
+
+[[main]]
+  name = "Categories"
+  pageRef = "categories"
+  weight = 20
+
+[[main]]
+  name = "Tags"
+  pageRef = "tags"
+  weight = 30
+
+[[main]]
+  identifier = "search"
+  pre = "magnifying-glass"
+  title = "Search"
+  weight = 40
+
+[[footer]]
+  name = "Tags"
+  pageRef = "tags"
+  weight = 10

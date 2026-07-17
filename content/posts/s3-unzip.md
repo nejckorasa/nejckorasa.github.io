@@ -1,5 +1,6 @@
 ---
 title: "Stream unzip files in S3 with Java"
+description: "How to unzip files in an S3 bucket by streaming, without loading whole archives into memory — a surprisingly non-trivial challenge in Java."
 date: 2022-10-22
 tags: ["Java", "S3", "AWS"]
 categories: Software Engineering

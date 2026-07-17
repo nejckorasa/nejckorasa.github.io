@@ -1,5 +1,6 @@
 ---
 title: "Avoid Tight Coupling of Tests to Implementation Details"
+description: "Why coupling tests to implementation details undermines refactoring, and how to test microservices through their contracts instead."
 date: 2023-01-08
 tags: ["Testing", "Microservices", "Software Architecture"]
 categories: Software Engineering

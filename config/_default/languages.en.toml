@@ -1,0 +1,26 @@
+locale = "en"
+label = "English"
+weight = 1
+title = "Nejc Korasa"
+
+[params]
+  displayName = "English"
+  isoCode = "en"
+  rtl = false
+  dateFormat = "January 2, 2006"
+  description = "Code and Software Musings"
+
+[params.author]
+  name = "Nejc Korasa"
+  headline = "Code and Software Musings"
+  bio = "Insights and tangents from my 12+ years in software development."
+  links = [
+    { linkedin = "https://www.linkedin.com/in/nejckorasa" },
+    { github = "https://github.com/nejckorasa" },
+    { x-twitter = "https://x.com/nejckorasa" },
+    { dev = "https://dev.to/nejckorasa" },
+    { medium = "https://medium.com/@nejckorasa" },
+    { stack-overflow = "https://stackoverflow.com/users/4420094/nejckorasa" },
+    { buymeacoffee = "https://buymeacoffee.com/nejc" },
+    { rss = "/index.xml" },
+  ]

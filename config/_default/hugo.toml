@@ -1,0 +1,42 @@
+theme = "blowfish"
+baseURL = "https://nejckorasa.github.io"
+defaultContentLanguage = "en"
+title = "Nejc Korasa"
+
+enableRobotsTXT = true
+summaryLength = 30
+
+buildDrafts = false
+buildFuture = false
+enableEmoji = true
+
+googleAnalytics = "G-R86690PBWG"
+
+[pagination]
+  pagerSize = 10
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[markup]
+  [markup.highlight]
+    noClasses = false
+    codeFences = true
+    style = "monokai"
+
+[related]
+  threshold = 0
+  toLower = false
+  [[related.indices]]
+    name = "tags"
+    weight = 100
+  [[related.indices]]
+    name = "categories"
+    weight = 80
+  [[related.indices]]
+    name = "date"
+    weight = 10
