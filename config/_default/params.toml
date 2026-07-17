@@ -65,3 +65,9 @@ smartTOC = true
 [taxonomy]
   cardView = false
   showTermCount = true
+
+# Blowfish's custom sitemap template excludes taxonomy/term pages by default.
+# Keep tag/category pages in the sitemap, matching the old PaperMod site so
+# Google keeps discovering them.
+[sitemap]
+  excludedKinds = []
