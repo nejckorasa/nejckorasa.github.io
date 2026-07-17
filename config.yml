@@ -1,6 +1,7 @@
 baseURL: "https://nejckorasa.github.io"
 languageCode: en-us
 title: Nejc Korasa
+defaultContentLanguage: en
 theme: PaperMod
 
 pagination:
