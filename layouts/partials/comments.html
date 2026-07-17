@@ -1,19 +1,58 @@
-<div style="display: flex; align-items: center; justify-content: center; padding: 12px; border: 1px solid #333; border-radius: var(--radius); background: #282a36; font-family: 'Courier New', Courier, monospace; font-size: 14px; margin-bottom: 30px; color: #f8f8f2;">
-  <a href="https://buymeacoffee.com/nejc" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 10px; color: inherit; text-decoration: none;">
-    <span style="color: #bd93f9; font-weight: bold;">$</span> 
-    <span style="color: #f1fa8c;">sudo</span>
+{{/* Buy-me-a-coffee — subtle terminal prompt that follows the theme */}}
+<div class="bmc-box">
+  <a href="https://buymeacoffee.com/nejc" target="_blank" rel="noopener noreferrer" class="bmc-link">
+    <span class="bmc-dollar">$</span>
+    <span class="bmc-cmd">sudo</span>
     <span>buy-coffee --user nejc</span>
-    <span style="display: inline-block; width: 8px; height: 1.2em; background-color: #f8f8f2; vertical-align: middle; margin-left: 4px; animation: blink 1s step-end infinite;"></span>
+    <span class="bmc-cursor"></span>
   </a>
 </div>
 
 <style>
-@keyframes blink {
-  from, to { opacity: 1; }
+.bmc-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 12px;
+  margin-bottom: 30px;
+  border: 1px solid rgba(120, 120, 120, 0.25);
+  border-radius: 8px;
+  background: rgba(120, 120, 120, 0.06);
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 14px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.bmc-box:hover {
+  border-color: rgba(120, 120, 120, 0.45);
+  background: rgba(120, 120, 120, 0.10);
+}
+.bmc-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.8;
+}
+.bmc-box:hover .bmc-link { opacity: 1; }
+.bmc-dollar { color: var(--color-primary-500, #8b5cf6); font-weight: bold; }
+.bmc-cmd { opacity: 0.7; }
+.bmc-cursor {
+  display: inline-block;
+  width: 7px;
+  height: 1.1em;
+  background-color: currentColor;
+  vertical-align: middle;
+  opacity: 0.6;
+  animation: bmc-blink 1s step-end infinite;
+}
+@keyframes bmc-blink {
+  from, to { opacity: 0.6; }
   50% { opacity: 0; }
 }
 </style>
 
+{{/* Giscus comments — synced to Blowfish's light/dark appearance */}}
 <script src="https://giscus.app/client.js"
         data-repo="nejckorasa/nejckorasa.github.io"
         data-repo-id="MDEwOlJlcG9zaXRvcnkyNzQ0NDI2MTE="
@@ -24,8 +63,33 @@
         data-reactions-enabled="1"
         data-emit-metadata="0"
         data-input-position="bottom"
-        data-theme="preferred_color_scheme"
+        data-theme="dark"
         data-lang="en"
         crossorigin="anonymous"
         async>
+</script>
+<script>
+(function () {
+  function giscusTheme() {
+    return document.documentElement.classList.contains("dark") ? "dark" : "light";
+  }
+  function setInitialTheme() {
+    var s = document.querySelector('script[src="https://giscus.app/client.js"]');
+    if (s) s.setAttribute("data-theme", giscusTheme());
+  }
+  function sendTheme() {
+    var frame = document.querySelector("iframe.giscus-frame");
+    if (!frame) return;
+    frame.contentWindow.postMessage(
+      { giscus: { setConfig: { theme: giscusTheme() } } },
+      "https://giscus.app"
+    );
+  }
+  setInitialTheme();
+  // Re-sync when Blowfish toggles the `.dark` class on <html>
+  new MutationObserver(sendTheme).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+})();
 </script>

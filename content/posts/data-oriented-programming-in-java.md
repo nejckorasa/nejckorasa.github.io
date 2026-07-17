@@ -1,5 +1,6 @@
 ---
 title: "Data Oriented Programming (DOP) in Java"
+description: "What Data Oriented Programming is, and how recent Java language features make it a practical, powerful alternative to classic OOP."
 date: 2025-04-18
 tags: ["Java", "OOO", "DOP", "Object Oriented Programming", "Design Patterns", "Pattern Matching"]
 categories: Software Engineering

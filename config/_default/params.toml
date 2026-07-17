@@ -1,0 +1,73 @@
+colorScheme = "blowfish"
+defaultAppearance = "dark"
+autoSwitchAppearance = true
+
+enableSearch = true
+enableCodeCopy = true
+enableStructuredBreadcrumbs = true
+
+mainSections = ["posts"]
+disableImageOptimization = false
+
+# No card thumbnails — cards show title/date/tags only (title is text anyway).
+# Social-share image: a branded text tile, shown uncropped by LinkedIn/X/etc.
+defaultSocialImage = "img/cover-social.png"
+
+smartTOC = true
+
+[verification]
+  google = "G-R86690PBWG"
+
+[header]
+  layout = "fixed-fill-blur"
+
+[footer]
+  showMenu = true
+  showCopyright = true
+  showThemeAttribution = true
+  showAppearanceSwitcher = true
+  showScrollToTop = true
+
+[homepage]
+  layout = "profile"
+  showRecent = true
+  showRecentItems = 10
+  showMoreLink = true
+  showMoreLinkDest = "posts"
+  cardView = true
+
+[article]
+  showDate = true
+  showAuthor = true
+  showHero = false
+  showBreadcrumbs = true
+  showHeadingAnchors = true
+  showPagination = true
+  showReadingTime = true
+  showTableOfContents = true
+  showWordCount = true
+  showTaxonomies = true
+  showComments = true
+  showRelatedContent = true
+  relatedContentLimit = 3
+  sharingLinks = ["linkedin", "twitter", "reddit", "email"]
+
+[list]
+  showHero = false
+  showBreadcrumbs = false
+  showSummary = false
+  showTableOfContents = false
+  showCards = true
+  showTaxonomies = true
+  maxTagsOnCard = 4
+  groupByYear = true
+
+[taxonomy]
+  cardView = false
+  showTermCount = true
+
+# Blowfish's custom sitemap template excludes taxonomy/term pages by default.
+# Keep tag/category pages in the sitemap, matching the old PaperMod site so
+# Google keeps discovering them.
+[sitemap]
+  excludedKinds = []

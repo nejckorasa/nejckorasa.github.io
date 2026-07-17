@@ -1,5 +1,6 @@
 ---
 title: "Kafka Backfill Playbook: Accessing Historical Data"
+description: "A practical playbook for accessing historical events once they've aged out of Kafka retention — patterns for backfilling state from a data lake."
 date: 2025-09-25
 tags: ["Data Engineering", "Kafka", "Data Backfill", "Event Driven Architecture", "ETL", "Data Lake", "AWS", "Microservices", "Distributed Systems"]
 categories: Software Engineering

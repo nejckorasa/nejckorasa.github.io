@@ -1,5 +1,6 @@
 ---
 title: "Avoid Tight Coupling of Tests to Implementation Details"
+description: "Why coupling tests to implementation details undermines refactoring, and how to test microservices through their contracts instead."
 date: 2023-01-08
 tags: ["Testing", "Microservices", "Software Architecture"]
 categories: Software Engineering
@@ -39,7 +40,7 @@ In the case of microservices, which are small and independent by definition, it 
 
 ### Don't couple you tests to Implementation Details
 
-{{< tweet user="NejcKorasa" id="1599395920281743361" >}}
+{{< x user="NejcKorasa" id="1599395920281743361" >}}
 
 When writing tests, it is important to avoid coupling them to implementation details. This ensures that tests serve as a reliable safety net, allowing you to refactor the internals of your microservice without having to modify the tests. 
 
