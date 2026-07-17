@@ -4,6 +4,7 @@ autoSwitchAppearance = true
 
 enableSearch = true
 enableCodeCopy = true
+enableStructuredBreadcrumbs = true
 
 mainSections = ["posts"]
 disableImageOptimization = false
