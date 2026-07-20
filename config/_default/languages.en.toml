@@ -13,7 +13,7 @@ title = "Nejc Korasa"
 [params.author]
   name = "Nejc Korasa"
   headline = "Software Insights & Tangents"
-  bio = "Insights and tangents on distributed systems and engineering practices, from my 12+ years building software in production."
+  bio = "Software engineer. 12+ years building distributed systems in production."
   links = [
     { linkedin = "https://www.linkedin.com/in/nejckorasa" },
     { github = "https://github.com/nejckorasa" },
