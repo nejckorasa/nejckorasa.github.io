@@ -8,11 +8,11 @@ title = "Nejc Korasa"
   isoCode = "en"
   rtl = false
   dateFormat = "January 2, 2006"
-  description = "Code and Software Musings"
+  description = "Insights and tangents on distributed systems and engineering practices — from 12+ years of building software in production."
 
 [params.author]
   name = "Nejc Korasa"
-  headline = "Code and Software Musings"
+  headline = "Software Insights & Tangents"
   bio = "Insights and tangents from my 12+ years in software development."
   links = [
     { linkedin = "https://www.linkedin.com/in/nejckorasa" },
