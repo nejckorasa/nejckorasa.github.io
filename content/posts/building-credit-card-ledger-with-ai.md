@@ -1,6 +1,6 @@
 ---
 title: "Building a Credit Card Ledger with AI: Why Specs Aren't the Source of Truth (Yet)"
-description: "Field notes from building a credit-card ledger with AI, and what the manifesto gets right and wrong when the code moves money."
+description: "I built a credit-card ledger in production with AI. Here's what only running it taught me — and where the popular 'regenerate it from the spec' thesis breaks when the code moves money."
 date: 2026-07-24
 tags: ["AI", "Software Architecture", "Testing", "Fintech", "Software Engineering"]
 categories: Software Engineering
@@ -8,95 +8,58 @@ ShowToc: true
 TocOpen: false
 ---
 
-A few days into the build, the model made a failing test pass by editing the test — feeding the assertion the wrong input so it would go green. It had taken the most direct route to the goal we'd set, which was make the suite green, and the suite was green. The code underneath was still wrong.
+A few days into the build, the model made a failing test pass by editing the test. It fed the assertion the wrong input so the suite would go green. The suite went green. The code underneath was still wrong.
 
-That one stuck with me, because it sits on top of an argument that's had a good year:
+I've spent about three and a half months building a credit-card ledger with Claude — double-entry accounting, authorisation and clearing, interest that accrues daily and capitalises monthly, statement cycles, delinquency. It runs in production, moving real money. I didn't hand-write the application code; I wrote the specs, the conventions, and the reviews, and the model wrote the code.
 
-> Once AI is writing the code, the code is disposable and the tests are what you keep. Behaviour outlives implementation. The evals are the real codebase. Delete the code and regenerate it from the spec.
+A ledger doesn't let you round off. It balances or it doesn't. So it's a good place to test the claim that's had a good year: that AI makes code disposable, and the thing worth keeping is the spec and the evals you regenerate it from.
 
-I agree with most of it. I also think it breaks the moment the code starts moving money, and I've spent a few months finding out where.
+Most of that is right. It breaks the moment the code moves money. Here's where.
 
-## This Is a Field Report
+## The Bug That Only Production Found
 
-For about three and a half months I've been building a credit-card ledger with Claude — double-entry accounting, authorisation and clearing, interest that accrues daily and capitalises monthly, statement cycles, delinquency, the lot. It runs in production. I didn't write the application code by hand; I wrote the specs, the conventions, and the reviews, and the model wrote the code.
+Start with the agreement, because it's most of it. Code used to be expensive, so we kept it; AI made it cheap, so keeping it is closer to a liability. At the component level this is just true — I regenerate individual pieces of this ledger, an action, a repository method, a migration, with no sentiment at all. The durable thing is the behaviour and the boundaries, not the files. The manifesto — I'll point at the [aicoding.leaflet.pub](https://aicoding.leaflet.pub/) series — is right about all of that.
 
-A ledger is a good place to test the strong version of the claim, because it doesn't let you round off. **It either balances or it doesn't.**
+It breaks on one word: *regenerate*.
 
-The clearest statement of the claim I've read is the [aicoding.leaflet.pub](https://aicoding.leaflet.pub/) series — I'll call it the manifesto. It's worth reading, and worth arguing with. That's what the rest of this is.
+**The bugs that actually hurt are emergent.** Two individually-correct rules that collide in one state. An assumption that holds for every account except the ones created before a schema change. An ordering that's ambiguous only at a finer resolution than anyone specifies. You don't design these in. You grow them, by running production data through the system for months.
 
-## What the Manifesto Gets Right
+One example, kept vague because the shape matters more than the mechanics. An account ended up internally contradictory — reported as fully healthy while carrying a counter only a delinquent account should have. The spec was correct; it said in plain words what should happen. The model implemented most of it and dropped one step on one path, reachable only by a specific sequence of events over more than a cycle. No re-reading of the spec surfaces that. Only a live account, moving through real time, does — which is how we found it, in production.
 
-Start with what I agree with, because it's most of it.
+Now run the manifesto's test on it. Delete the code, rebuild from the spec, and you get back the same spec — the one that was already right — so you regenerate the same gap. **The fix was never in the spec.**
 
-**The core move is economic.** Code used to be expensive to produce, so we treated it as an asset to keep. AI made it cheap, so keeping it is closer to a liability now:
+And it's worse than a wash, because generation isn't deterministic. Ask twice, get two implementations. Regenerate and you keep the eval net you built, but you throw away the hardening baked into the old code — every guard it grew the hard way that never became a named check. The new implementation arrives with its own fresh emergent bugs, the ones nothing tests for because nobody's hit them yet. In a domain where you find out a billing cycle later, that gap is the whole risk.
 
-> Code is no longer scarce. It is abundant, fast, and increasingly disposable.
+## "Just Update the Spec, Then"
 
-The durable thing is the system's behaviour and its boundaries, not the files. Small components are valuable because they're safe to delete.
+The obvious reply: when production teaches you something, write it back into the spec. Do that enough and the spec converges on completeness, and regenerate-from-spec works fine.
 
-**At the component level, this is just true**, and I've felt it. I regenerate individual pieces of this ledger — an action, a repository method, a migration — with no sentiment at all. If a module is small and its boundary is clean, deleting it and asking for a new one beats reading and patching the old one. The discipline the manifesto asks for is the discipline that always made systems maintainable. The reward for it went up.
+Two problems, and the manifesto half-sees both.
 
-**The domain is where it starts to matter.** The manifesto is written from a world where regenerating is cheap because being wrong is cheap: regenerate, run the evals, ship, and if something's off you see it and go again. A ledger removes that. A wrong answer is a silent error in someone's money that may not surface for a full billing cycle — high cost of being wrong, and a long delay before you find out. Both strong claims, *the evals are the truth* and *regenerate from the spec*, lean on the same assumption: that the knowledge you need to rebuild is written down somewhere. Often it isn't.
+**The detection half is fair**, and I won't pretend otherwise. The manifesto builds for exactly this — a live-evaluation tier that "runs continuously against reality rather than periodically against test fixtures." Monitoring catches what tests miss. Granted. But detecting a gap isn't the same as closing the loop, and nowhere does the argument write the lesson back into the intent. Even where you do it by hand, notice what happened: the knowledge came from running, not from specifying. The spec became a transcript of what production taught you, written after the fact. That's a changelog of scars, not a source of truth.
 
-## An Eval Is a Claim, Not a Truth
+**The second problem ends the fantasy.** Push enough detail back into the spec to actually pin a *correct* ledger — every edge, every ordering rule, every precision detail, every guard — and the spec stops being a spec. It becomes the implementation again, in prose, with worse tooling and no type checker. The manifesto concedes the empirical half of this and declines to follow it home: durable evaluations, it admits, are
 
-> Tests and evaluations define truth, not files.
+> harder than writing the code they specify.
 
-I get the appeal. A test is executable, unambiguous, and survives a rewrite in a way implementation details don't. But an eval is only a source of truth if something the author can't edit holds it in place. When the thing writing the code is also writing the tests — and the model is both — the test stops being an independent check and becomes one more surface to optimise. That's the story I opened with: asked to satisfy the assertion, it satisfied the assertion.
+Once your specification is more expensive than your code and still growing, "regenerate from the spec" hasn't removed the hard part. It's renamed it.
 
-So the question isn't whether tests are the truth. It's what makes any test trustworthy, and that has nothing to do with whether a human or a machine wrote it. Two things do the work.
+## What I'd Actually Keep
 
-**First, an oracle the author can't reach.** The check has to get its answer from something outside the optimiser's grasp — by a different route, from a record that can't be quietly rewritten to agree with it. The most valuable check in this ledger re-derives a core accounting invariant from the raw, append-only entries, with its own arithmetic, and compares that against what the live code believes. If both used the same helper, agreement would prove nothing. Because they don't, and because the entries can't be edited to force a pass, agreement is evidence.
+Not the code, and not the spec. The design — and the thing that watches it.
 
-**Second, a human who owns the contract** — whose job at review isn't "did the tests pass" but "are these the right tests, and do they still mean what they should." AI didn't remove that job; it made it bigger, because the model produces plausible tests all day and some of them point at the wrong thing. (I argued a version of this in 2023, about [not coupling tests to implementation details](https://nejckorasa.github.io/posts/microservice-testing/). The rule I keep — test at the seam, not the internals — is the same one, and it matters more when a machine is writing the internals.)
+Go back to the gamed test. The model edited it because nothing stopped it: it owned the code and the check both, so the check was one more surface to satisfy. **The checks that survive contact with a model are the ones it can't quietly satisfy** — the ones whose answer comes from somewhere it can't reach.
 
-## The Spec Was Right, and the Bug Shipped Anyway
+In this ledger that's reconciliation. Every operation keeps a running balance as it goes. Separately, after the fact, another process recomputes what the balances should be — from the immutable log of what happened, with its own arithmetic — and compares. The entries can't be edited to force a pass, so agreement is evidence. It never repairs anything and it can't block an operation; it only reports. That's what catches the subtly broken write, the botched migration, the hand-edited row — the errors that satisfy every per-operation rule and still leave the books wrong.
 
-Here's the claim I most want to push on: that you should be able to regenerate the system from its spec, and if you can't, that's a diagnosis — a sign the understanding was trapped in the code instead of made explicit.
+The other half is a human who owns the contract — deciding what a check should *mean*, not just whether it's green. That's an old rule — [test at the seam, not the internals](https://nejckorasa.github.io/posts/microservice-testing/) — that only got more load-bearing once a machine started writing the internals.
 
-**The defects that actually hurt live where no up-front spec reaches.** They're emergent: two individually-correct rules that collide only in one state, an assumption that holds for every account except the ones created before a schema change, an ordering that's ambiguous only at a finer resolution than anyone thinks to specify. You don't design these in. You grow them, by running production data through the system over months.
+The manifesto has a name for the net: the live-evaluation tier. Fair — reconciliation is exactly that, and I'm not claiming to have found something it missed. I'm saying it's the part it underweights, and the part I'd least want to regenerate. Two things stay true of it. It catches *late* — after the money's moved — so it reports damage, it doesn't prevent it. And it's only ever as complete as the invariants you've thought to encode, so it grows one incident at a time. The hard-won ones live in those checks on purpose, where a model can't simplify them away without a human noticing.
 
-One example, kept vague because the shape matters more than the mechanics. An account ended up internally contradictory — reported as fully healthy while carrying a counter only a delinquent account should have. The spec for that behaviour was correct; it said, in plain words, what should happen. The model implemented most of it and dropped a single step on one path, and that path was only reachable by a specific sequence of events over more than a cycle. No re-reading of the spec surfaces that. Only a live account, moving through real time, does — which is how we found it, in production.
+## What's Permanent, and What's Just "Yet"
 
-Now run the regenerate-from-spec test on that. Delete the code, rebuild from the spec, and you get back the same spec — the one that was already right — so you regenerate the gap. **The fix was never in the spec.**
+Most of my disagreement is a "yet." Evals may get robust enough that gaming them stops being the easy path; specs may get expressive enough to carry invariants that today live only in code. Better tooling shortens the loop. One part isn't a "yet," and it's the part carrying the argument: no tool can pre-contain a collision nobody has hit. That isn't a gap in the tooling. It's what *emergent* means, and it doesn't go away.
 
-Regeneration isn't neutral here, either, because generation isn't deterministic. Ask twice, get two implementations. The manifesto knows this and files it under manageable:
+The honest cost, because leaving it out would sell the trick. None of the safety came from trusting the model. It came from out-writing it where it counts — there's more test code in this project than application code, and those checks exist because the model is confidently, fluently wrong often enough to need them. The productivity is real. So is the judgement it takes to make it safe. Sell the first without the second and you've sold the green suite, not the correct one.
 
-> Non-deterministic generators may produce different code from identical intent graphs… these are not reasons to abandon the approach. They are design constraints.
-
-The retained evals are meant to keep the new implementation honest. But evals only cover the failures you already went looking for. A fresh implementation brings a fresh set of emergent ones — a new collision, a new edge — and those are the ones nothing checks for yet, because nobody has met them. Regenerating keeps the net you built and discards the hardening baked into the code underneath it. What's left exposed is the gap: everything the old code learned the hard way that never made it into a named check. In a domain where you find out a billing cycle later, that gap is the whole risk.
-
-The lasting thing that came out of that contradictory account wasn't the one-line fix. It was the check we added afterwards — the one that now refuses to let any account sit in that impossible state again.
-
-## Reconciliation Is Their Tier Three
-
-The obvious objection: that check is just an eval, and so is the whole net around it. Fair. The manifesto has a name for it — the live-evaluation tier, the one that *"runs continuously against reality rather than periodically against test fixtures."* I'm not claiming to have found something it missed.
-
-I'm claiming it buries the tier that matters most. In this ledger that tier is **reconciliation**, and it's the part of the system I'd least want to lose. Every operation keeps a running balance as it goes. Separately, after the fact, another process recomputes what the balances should be — straight from the immutable log of what happened — and compares. A second, independent opinion, taken from the record rather than from the code that wrote it. It never repairs anything and it can't block an operation. It only reports.
-
-That matters because everything else can be wrong in ways that pass their local checks. A subtly broken write, a botched migration, a hand-edited row — each can satisfy every per-operation rule and still leave the books wrong. A second opinion from the record is the only thing that catches them.
-
-But two things are true about that net. It catches *late* — it observes after the fact, it doesn't prevent, so in a slow domain the error has usually already shipped. And it's only ever as complete as the invariants you've thought to encode, so it grows one incident at a time. That's why regenerating the implementation under a good net still isn't safe here. **The net is real, it is provably partial, and it tells you about the damage after the money has moved.** Keeping the net is not the same as being free to throw away the code beneath it.
-
-## The Manifesto Already Knows This
-
-The best essay in the series makes the point for me. "The Implementation Remembers" says it plainly:
-
-> The implementation remembers. The organisation forgets. […] Clean code that forgets why it exists is just a more elegant way to fail.
-
-Working systems carry lessons no document kept, and handing that code to a model to clean up risks removing the memory with the mess. And it cuts both ways:
-
-- **Forward, spec to code**, you lose the scars — they were never in the spec.
-- **Backward, code to spec** — pointing the model at a working system to recover its design — you lose the *why*: it reads the guard but not the incident that put it there, and files a load-bearing special case under cleanup.
-
-Both directions drop the same thing: the operational memory that only exists because the system ran in production and got things wrong. In this domain that memory isn't a residue to recover carefully before regenerating. The scars are load-bearing, and they live on purpose in the tests and the checks — where a model can't quietly delete them without a human noticing.
-
-## Where This Is Wrong, and What Changed
-
-The "yet" in the title is honest, but it only covers part of this. Evals may get robust enough that gaming them stops being the easy path; specs may get expressive enough to carry invariants that today live only in code. Better tooling shortens the discovery loop and grows the net. What it can't do is pre-contain a collision nobody has hit yet — and that's the part carrying the argument. That isn't a gap in the tools. It's what *emergent* means.
-
-And the disagreement is narrower than it sounds. At the component level the manifesto is right, and I build that way. It's *system-level* regeneration — throwing away the whole implementation and trusting an incomplete net to catch what the new one gets wrong — that I won't do here.
-
-One more thing, plainly, because leaving it out would be dishonest: none of the safety came from trusting the model. It came from out-writing it where it counts. There's meaningfully more test code in this project than application code, and even with strict documentation discipline the docs still drift from the code in ways I keep finding. The productivity is real. So is the judgement it takes to make it safe. Anyone selling you the first without the second is selling you the green suite, not the correct one.
-
-So the work didn't go away. It moved off the keyboard and onto the parts that were always hard: deciding what has to be true, drawing the boundaries, and building the thing that catches the machine when it's wrong — and it is wrong fluently, which is the hard part. The code was never the asset; the manifesto is right about that. I'd add one thing: neither is the spec. **The asset is the design, and the judgement in everything that checks it.**
+The manifesto's headline is right: the code was never the asset. I'd add the line it stops short of. Neither is the spec. The asset is the design, and the judgement in everything that checks it.
