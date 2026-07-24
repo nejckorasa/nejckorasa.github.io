@@ -28,11 +28,13 @@ One we hit: an account carries a counter that's only meant to be non-zero while 
 
 Now run the manifesto's move on it. Delete the code, rebuild from the spec, and you get back the same spec, the one that was already right, and the same gap with it. The fix was never in the spec to regenerate from.
 
+And you don't even get the same code back. Forget sampling temperature — set it to zero if you like; the next model version, a reworded prompt, or a bumped dependency is enough to hand you a different implementation. A different implementation that passes the same spec is still a different set of places to be wrong. So regeneration doesn't reproduce the bug you already found and fixed in code; it clears the board and deals a fresh hand of emergent ones, the kind nobody has a check for yet.
+
 ## "Just Update the Spec, Then"
 
 The obvious reply: when production teaches you something, write it into the spec. Do it enough and the spec fills in, and regenerate-from-spec works.
 
-The first half of that is right, and it's worth being precise about why. The fix for the delinquency bug is one line — the count is non-zero if and only if the account is delinquent. That single invariant constrains every possible implementation; it doesn't care how the code is written, only that the books obey it. Specs made of invariants like that don't bloat toward the size of the code. They stay small. So the manifesto is right that a compact set of properties can pin a large system, and I won't pretend the spec collapses into code-in-prose. It doesn't.
+The first half of that is right, and it's worth being precise about why. The fix for the delinquency bug is one line — the count is non-zero if and only if the account is delinquent. That single invariant constrains every possible implementation; it doesn't care how the code is written, only that the books obey it. A spec detailed enough to pin the code's every quirk would stop being a spec — it'd be the implementation again, in prose, with worse tooling and no type checker. But you rarely need that, because the invariants that matter are one-liners. They stay small. So the manifesto is right that a compact set of properties can pin a large system, and I won't pretend the spec collapses into code-in-prose. It doesn't have to.
 
 The problem is the other word: *which*. You only knew to write `count ⟺ delinquent` after an account broke it in production. Every invariant in the net is there because something taught it to you — a collision, an incident, a near-miss. The set is compressive but never complete, and it's short in exactly the directions production hasn't taken you yet. Regenerate the implementation and you keep every invariant you've earned, but the new code arrives with its own fresh ways to be wrong, and those have no check, because nobody has met them.
 
