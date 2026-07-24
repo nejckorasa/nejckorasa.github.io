@@ -28,7 +28,7 @@ One we hit: an account carries a counter that's only meant to be non-zero while 
 
 Now run the manifesto's move on it. Delete the code, rebuild from the spec, and you get back the same spec, the one that was already right, and the same gap with it. The fix was never in the spec to regenerate from.
 
-And you don't even get the same code back. Forget sampling temperature — set it to zero if you like; the next model version, a reworded prompt, or a bumped dependency is enough to hand you a different implementation. A different implementation that passes the same spec is still a different set of places to be wrong. So regeneration doesn't reproduce the bug you already found and fixed in code; it clears the board and deals a fresh hand of emergent ones, the kind nobody has a check for yet.
+And you don't even get the same code back. Forget sampling temperature — set it to zero; the next model version or a reworded prompt still hands you a different implementation, and a different implementation that passes the same spec is a different set of places to be wrong. Regeneration doesn't reproduce the bug you already fixed. It clears the board and deals a fresh hand of emergent ones, the kind nobody has a check for yet.
 
 ## "Just Update the Spec, Then"
 
@@ -52,7 +52,7 @@ The shape is simple. Every operation keeps a running balance as it goes. Separat
 
 Go back to the gamed test. The model rewrote the check because it owned both sides, the code and the check, so the check was just one more thing to satisfy. The checks that hold up are the ones whose answer the model can't compute, because it comes from data the model didn't write. Reconciliation recomputes from the immutable log; the delinquency invariant re-derives the count from the event history. Neither can be quietly satisfied from the inside.
 
-There's a second independence, and it matters as much as the data. Reconciliation is its own module with its own scope, derived from the record and first principles rather than from the code it audits — ideally built in a separate pass that never read the write path. A check grown from the same assumptions as the code inherits the same blind spots; a check built apart has to arrive at the same number on its own, and disagreements are exactly the bugs worth finding.
+And it's independent twice over — not just in its data but in how it's built. A check grown from the same code it audits inherits the same blind spots; reconciliation is derived from the record and first principles, ideally in a separate pass that never read the write path, so it has to arrive at the same number on its own. Disagreements are exactly the bugs worth finding.
 
 The other half is a person who owns the contract — who decides what a check should *mean*, not just whether it's green. That's an old rule ([test at the seam, not the internals](https://nejckorasa.github.io/posts/microservice-testing/)) that only got heavier once a machine started writing the internals. Matt Pocock puts the AI-era version of it well: ["You own the interface. AI owns the implementation. Tests keep it honest."](https://www.aihero.dev/how-to-make-codebases-ai-agents-love) Get the seam right and both a person and a model can work against it without spelunking the internals. (How you structure a whole system for that is its own post.)
 
