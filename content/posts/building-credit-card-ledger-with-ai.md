@@ -1,5 +1,5 @@
 ---
-title: "Specs Aren't the Source of Truth (Yet)"
+title: "Building a Credit Card Ledger with AI: Why Specs Aren't the Source of Truth (Yet)"
 description: "Field notes from building a credit-card ledger with AI, and what the manifesto gets right and wrong when the code moves money."
 date: 2026-07-24
 tags: ["AI", "Software Architecture", "Testing", "Fintech", "Software Engineering"]
