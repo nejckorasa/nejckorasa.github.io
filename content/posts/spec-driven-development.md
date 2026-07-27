@@ -1,5 +1,5 @@
 ---
-title: "Spec-Driven Development: What Belongs in the Spec"
+title: "Spec-Driven Development in Production: What the Spec Can Actually Own"
 description: "Three months building a production credit-card ledger with AI. Which parts of a spec survive, which parts rot, and the step the workflow is still missing."
 date: 2026-07-27
 tags: ["AI", "Spec-Driven Development", "Software Architecture", "Testing", "Software Engineering"]
@@ -12,7 +12,7 @@ I've spent about three months building a credit-card ledger with Claude - balanc
 
 The workflow is dull: a dated spec, a plan, one slice per merge request, a review before the next slice starts, and the team's conventions in a file every agent loads. It works. Two things I didn't expect are worth writing down.
 
-## Half of Our First Spec Rotted
+## What Belongs in a Spec
 
 That spec had everything in it: the domain rules, a table of endpoints, a field list per entity, a diagram of how the entities relate. A few months later I had to add a note at the top saying which parts had gone stale. Endpoints never built, field lists drifted, one relationship drawn backwards.
 
